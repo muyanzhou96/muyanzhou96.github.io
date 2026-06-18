@@ -1,16 +1,16 @@
-# Publications markdown generator for AcademicPages
-# 
-# Takes a TSV / CSV of publications with metadata and converts them for use with [academicpages.github.io](academicpages.github.io). 
+# Publications markdown generator for this Jekyll site
+#
+# Takes a TSV / CSV of publications with metadata and converts them into Jekyll publication entries.
 # Can be called via the command prompt by using `python3 publications.py [filename]`.
 
 # Data format
-# 
+#
 # The file needs to have the following columns as a header at the top:
 # pub_date, title, venue, excerpt, citation, url_slug, paper_url, slides_url
-# - `excerpt`, `paper_url`, and slides_url can be blank, but the others must have values. 
+# - `excerpt`, `paper_url`, and slides_url can be blank, but the others must have values.
 # - `pub_date` must be formatted as YYYY-MM-DD.
-# - `url_slug` will be the descriptive part of the .md file and the permalink URL for the page about the paper. 
-#    The .md file will be `YYYY-MM-DD-[url_slug].md` and the permalink will be `https://[yourdomain]/publications/YYYY-MM-DD-[url_slug]`
+# - `url_slug` will be the descriptive part of the .md file and the permalink URL for the page about the paper.
+#    The .md file will be `YYYY-MM-DD-[url_slug].md` and the permalink will be `/publications/YYYY-MM-DD-[url_slug]`
 import csv
 import os
 import sys

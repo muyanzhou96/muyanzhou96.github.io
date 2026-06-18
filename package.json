@@ -1,25 +1,23 @@
 {
-  "name": "academic-pages",
+  "name": "muyanzhou96.github.io",
   "version": "0.8.1.1",
-  "description": "Academic Pages Mistakes Jekyll theme npm build scripts",
+  "description": "Jekyll source and asset build scripts for Yanzhou Mu's personal homepage",
   "repository": {
     "type": "git",
-    "url": "https://github.com/academicpages/academicpages.github.io"
+    "url": "https://github.com/muyanzhou96/muyanzhou96.github.io"
   },
   "keywords": [
     "jekyll",
-    "theme",
-    "minimal"
+    "personal-homepage",
+    "software-testing",
+    "software-engineering"
   ],
-  "contributors": [
-    "Michael Rose",
-    "Robert Zupko"
-  ],
+  "author": "Yanzhou Mu",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/academicpages/academicpages.github.io/issues"
+    "url": "https://github.com/muyanzhou96/muyanzhou96.github.io/issues"
   },
-  "homepage": "https://github.com/academicpages/academicpages.github.io",
+  "homepage": "https://muyanzhou96.github.io",
   "engines": {
     "node": ">= 0.10.0"
   },

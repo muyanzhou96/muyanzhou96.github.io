@@ -11,6 +11,10 @@ author_profile: true
 
 {% endif %}
 
-{% for post in site.talks reversed %}
-  {% include archive-single-talk.html %}
-{% endfor %}
+{% if site.talks.size > 0 %}
+  {% for post in site.talks reversed %}
+    {% include archive-single-talk.html %}
+  {% endfor %}
+{% else %}
+No talks or presentations were extracted from the LaTeX resume.
+{% endif %}
