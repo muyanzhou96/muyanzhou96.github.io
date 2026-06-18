@@ -2,6 +2,8 @@
 title: "Generate Realistic Test Scenes for V2X Communication Systems"
 collection: publications
 category: manuscripts
+ccf: "A"
+status: "Major revision"
 permalink: /publication/2025-01-04-realistic-test-scenes-v2x-major-revision
 excerpt: "A manuscript under major revision on realistic test scene generation for V2X communication systems."
 date: 2025-01-04

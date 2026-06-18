@@ -2,6 +2,7 @@
 title: "Train in Vain: Functionality-Preserving Poisoning to Prevent Unauthorized Use of Code Datasets"
 collection: publications
 category: conferences
+ccf: "A"
 permalink: /publication/2026-01-02-train-in-vain
 excerpt: "Functionality-preserving poisoning to prevent unauthorized use of code datasets."
 date: 2026-01-02

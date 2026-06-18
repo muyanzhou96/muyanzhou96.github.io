@@ -12,8 +12,8 @@ site_theme               : "default" # The available themes options are "default
 title                    : "Yanzhou Mu"
 title_separator          : "-"
 name                     : "Yanzhou Mu"
-description              : &description "Yanzhou Mu is a doctoral student in software engineering whose research focuses on software testing, deep learning framework testing, model mutation, and metamorphic testing."
-keywords                 : "Yanzhou Mu, software testing, software engineering, deep learning framework testing, model mutation, metamorphic testing, MindSpore, PyTorch, concurrency testing"
+description              : &description "Yanzhou Mu is a postdoctoral researcher in Computer Science and Engineering at UNIST whose research focuses on quality assurance for AI infrastructure."
+keywords                 : "Yanzhou Mu, quality assurance for AI infrastructure, software testing, software engineering, deep learning framework testing, model mutation, metamorphic testing, MindSpore, PyTorch, concurrency testing"
 url                      : https://muyanzhou96.github.io # The base hostname & protocol for your site e.g. "https://[your GitHub username].github.io",
                                                            # or if you already have some other page hosted on Github then use "https://[your GitHub username].github.io/[Your Repo Name]"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
@@ -28,9 +28,9 @@ author:
   avatar           : "profile.jpg"
   name             : "Yanzhou Mu"
   pronouns         : # example: "she/her"  
-  bio              : "Doctoral student in software engineering. Research direction: software testing."
-  location         : "Nanjing City"
-  employer         : "Nanjing University"
+  bio              : "Postdoctoral researcher in Computer Science and Engineering. Research focus: quality assurance for AI infrastructure."
+  location         :
+  employer         : "UNIST"
   uri              : # URL
   email            : "602022320006@smail.nju.edu.cn" 
 

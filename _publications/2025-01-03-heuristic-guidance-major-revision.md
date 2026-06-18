@@ -2,6 +2,8 @@
 title: "Deep Learning Framework Testing via Heuristic Guidance Based on Multiple Model Measurements"
 collection: publications
 category: manuscripts
+ccf: "A"
+status: "Major revision"
 permalink: /publication/2025-01-03-heuristic-guidance-major-revision
 excerpt: "A manuscript under major revision on heuristic guidance for deep learning framework testing."
 date: 2025-01-03
