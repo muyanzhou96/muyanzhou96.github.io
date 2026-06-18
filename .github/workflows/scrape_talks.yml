@@ -6,6 +6,8 @@ on:
       - 'talks/**'
       - '_talks/**'
       - 'talkmap.ipynb'
+      - 'requirements.txt'
+      - '.github/workflows/scrape_talks.yml'
 
 jobs:
   build:
@@ -14,23 +16,37 @@ jobs:
       contents: write           # This workflow pushes to the repository
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
+
+    - name: Check for talk files
+      id: talks
+      run: |
+        if [ -d _talks ] && find _talks -maxdepth 1 -type f \( -name '*.md' -o -name '*.html' \) | grep -q .; then
+          echo "has_talks=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "No talk files found; skipping talk map generation."
+          echo "has_talks=false" >> "$GITHUB_OUTPUT"
+        fi
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      if: steps.talks.outputs.has_talks == 'true'
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.9'   # Specify the Python version you need
+        python-version: '3.11'
 
     - name: Install dependencies
+      if: steps.talks.outputs.has_talks == 'true'
       run: |
-        pip install jupyter pandas requests beautifulsoup4 geopy  # Add other dependencies as needed
-        pip install getorg --upgrade
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
 
     - name: Run Jupyter Notebook
+      if: steps.talks.outputs.has_talks == 'true'
       run: |
-        jupyter nbconvert --to notebook --execute talkmap.ipynb --output talkmap_out.ipynb
+        python -m jupyter nbconvert --to notebook --execute talkmap.ipynb --output talkmap_out.ipynb
 
     - name: Commit changes
+      if: steps.talks.outputs.has_talks == 'true'
       run: |
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"

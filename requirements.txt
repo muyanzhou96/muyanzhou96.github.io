@@ -1,0 +1,5 @@
+jupyter
+nbconvert
+geopy
+getorg
+python-frontmatter<1.2
