@@ -1,36 +1,33 @@
 ---
 permalink: /
 title: "Yanzhou Mu"
-description: "Postdoctoral researcher in Computer Science and Engineering at UNIST, with a research focus on quality assurance for AI infrastructure."
+description: "InnoCORE Postdoctoral Researcher, Department of Computer Science and Engineering, UNIST."
 author_profile: true
 redirect_from:
   - /about/
   - /about.html
 ---
 
-I am a postdoctoral researcher in Computer Science and Engineering at UNIST, supervised by Prof. Mijung Kim. I received my Ph.D. from Nanjing University in June 2026 under the supervision of [Prof. Zhenyu Chen](https://scholar.google.com/citations?user=HQWxCnkAAAAJ&hl=en) and [Prof. Chunrong Fang](https://chunrong.github.io/). My current research primarily focuses on quality assurance for AI infrastructure.
+I am an InnoCORE Postdoctoral Researcher in Computer Science and Engineering at UNIST, supervised by Prof. [Mijung Kim](https://mijungk.github.io/). I received my Ph.D. from Nanjing University in June 2026 under the supervision of [Prof. Zhenyu Chen](https://scholar.google.com/citations?user=HQWxCnkAAAAJ&hl=en) and [Prof. Chunrong Fang](https://chunrong.github.io/). My current research primarily focuses on **Quality Assurance for AI Infrastructure**.
 
 Before that, I received my master's degree from the College of Intelligence and Computing at Tianjin University, where I was supervised by Prof. Zan Wang, [Prof. Shuang Liu](https://scholar.google.com/citations?hl=en&user=-cw2GtwAAAAJ), and [Prof. Junjie Chen](https://sites.google.com/site/junjiechen08/). I received my bachelor's degree from Nantong University under the supervision of [Prof. Xiang Chen](https://xchencs.github.io/index.html).
 
-I am always looking for self-motivated undergraduate and graduate students who share similar research interests and are interested in collaboration. Please contact me by e-mail.
+I welcome inquiries from self-motivated undergraduate and graduate students who share similar research interests and are interested in research collaboration. Please feel free to contact me via email.
 
 News
 ======
 
-* 2026.05 Serving as a Program Committee (PC) Member for FSE 2027.
-* 2026.05 🎉 Our papers are accepted to ICML 2026 and TIFS.
-* 2026.04 🎉 Our paper is accepted to ACL 2026.
-* 2026.02 Serving as a Program Committee (PC) Member for ASE 2026, AIware 2026, and LLMSC@FSE 2026.
-* 2025.10 🎉 Our paper is accepted to TOSEM.
+* 2026.06 Joined UNIST as an InnoCORE Postdoctoral Researcher.
+* 2026.06 🎉 Our paper is accepted to TOSEM.
+* 2025.12 🎉 Our paper is accepted to TSE.
+* 2025.08 Serving as a Shadow Program Committee (PC) Member for ICSE 2026.
 
 Research Areas
 ======
 
 * Software testing
-* Deep learning framework testing
-* Model mutation and metamorphic testing
-* Testing and diagnosis for MindSpore and PyTorch-based model workflows
-* Concurrency defect detection and heuristic scheduling
+* SE for AI
+* AI for SE
 
 Selected Projects
 ======
@@ -40,9 +37,10 @@ Selected Projects
 * Fast Detection, Localization, and Patch Generation for Concurrency Defects
 * LLM Generalization Testing Tool for MindSpore
 
-Education
+Education/Work Experience
 ======
 
+* InnoCORE Project Postdoctoral Researcher, Now, 2026.06-2026.11
 * Ph.D. Student in Software Engineering, Nanjing University, 2022.09-2026.06
 * Master in Software Engineering, Tianjin University, 2019.09-2022.01
 * Bachelor in Computer Science and Technology, Nantong University, 2015.09-2019.06
@@ -57,10 +55,7 @@ Service
 
 **Conference Service / Reviewing**
 
-* 2027: Program Committee Member, FSE
-* 2026: Program Committee Member, ASE
-* 2026: Program Committee Member, AIware
-* 2026: Program Committee Member, LLMSC@FSE
+
 * 2026: Shadow PC, ICSE
 * 2026: Co-reviewer, ISSTA
 * 2026: Co-reviewer, ICSE

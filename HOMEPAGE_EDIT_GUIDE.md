@@ -1,0 +1,632 @@
+# 个人主页内容修改说明
+
+这份文档说明当前个人主页仓库中各类内容的维护位置。当前项目是 Jekyll / Academic Pages 风格的静态站点，页面内容主要由 Markdown、YAML front matter、Liquid 模板和 `_config.yml` 共同生成。
+
+修改前建议先运行：
+
+```bash
+git status --short
+```
+
+确认当前工作区状态，避免把无关改动混在一起。不要删除 `resume/` 文件夹，其中保存的是简历源文件和原始照片。
+
+## 1. 项目整体结构说明
+
+- 页面内容：`_pages/`
+  - 首页：`_pages/about.md`
+  - Publications 页面：`_pages/publications.html`
+  - CV 页面：`_pages/cv.md`
+  - JSON CV 页面：`_pages/cv-json.md`
+  - Projects 页面：`_pages/portfolio.html`
+  - Talks / Teaching 等模板页面：`_pages/talks.html`、`_pages/teaching.html`
+- 结构化数据：`_data/`
+  - 顶部导航：`_data/navigation.yml`
+  - 作者信息备份：`_data/authors.yml`
+  - JSON CV 数据：`_data/cv.json`
+  - UI 文案：`_data/ui-text.yml`
+- 模板和局部组件：`_includes/`
+  - 作者侧栏：`_includes/author-profile.html`
+  - 单篇 publication 渲染：`_includes/archive-single.html`
+  - CV 中 publication 渲染：`_includes/archive-single-cv.html`
+  - SEO：`_includes/seo.html`
+  - 页脚：`_includes/footer.html`
+  - 顶部导航模板：`_includes/masthead.html`
+- 页面布局：`_layouts/`
+  - 默认布局：`_layouts/default.html`
+  - 单页布局：`_layouts/single.html`
+  - 列表页布局：`_layouts/archive.html`
+  - CV 布局：`_layouts/cv-layout.html`
+- 发表列表数据：`_publications/`
+  - 每篇论文一个 `.md` 文件，使用 YAML front matter 保存标题、venue、date、citation、CCF 标记等。
+- 项目经历数据：`_portfolio/`
+  - 每个 project 一个 `.md` 文件，由 `_pages/portfolio.html` 渲染。
+- 博客文章：`_posts/`
+  - 当前未看到主页内容依赖这里。若以后写博客，可以放 Jekyll posts。
+- 样式：`assets/css/main.scss` 和 `_sass/`
+  - `assets/css/main.scss` 负责导入 `_sass/` 下的主题、布局、组件样式。
+- JavaScript：`assets/js/`
+  - `assets/js/_main.js` 是源文件，`assets/js/main.min.js` 是压缩后文件。
+- 图片和图标：`images/`
+  - 当前头像：`images/profile.jpg`
+  - favicon：`images/favicon.svg`、`images/favicon.ico`、`images/favicon-*.png`
+  - Web manifest：`images/manifest.json`
+- 附件：`files/`
+  - 可公开下载的 PDF、slides、BibTeX 等应放这里。
+  - 当前 `files/bibtex1.bib` 是示例 BibTeX，不是正式 publication 数据源。
+- 简历原始资料：`resume/`
+  - 当前有 `resume/main-en.tex`、`resume/main-en.pdf`、`resume/person2.jpg` 等。
+  - `resume/` 在 `_config.yml` 第 195-196 行附近被排除，不会直接进入生成站点。
+- 网站配置：`_config.yml`
+  - 站点标题、作者信息、社交链接、SEO 描述、collections、插件、排除目录等都在这里。
+- GitHub Actions：`.github/workflows/`
+  - `scrape_talks.yml`：talk map notebook 自动执行流程。
+  - `bad-pr.yml`：模板遗留的 PR 清理 workflow。
+- 本地依赖：
+  - Ruby/Jekyll：`Gemfile`
+  - Python notebook：`requirements.txt`
+  - JS assets：`package.json`
+
+## 2. 首页各部分内容在哪里修改
+
+#### 首页个人简介 / Biography
+
+- 显示位置：首页正文最上方。
+- 修改文件：`_pages/about.md`
+- 大致行号：第 11-15 行附近。
+- 搜索关键词：`I am a postdoctoral researcher`
+- 修改方式：直接修改 Markdown 正文。
+- 注意事项：
+  - 如果要添加导师链接，使用 Markdown 链接：`[Prof. Name](https://example.com)`。
+  - 不要把 URL 裸露显示在正文中。
+  - 主页 front matter 的短描述在 `_pages/about.md` 第 4 行，也可同步更新。
+
+#### 头像
+
+- 显示位置：页面左侧作者侧栏。
+- 修改文件：`_config.yml`
+- 大致行号：第 28 行附近，字段是 `author.avatar`。
+- 当前路径：`images/profile.jpg`
+- 搜索关键词：`avatar`
+- 渲染模板：`_includes/author-profile.html` 第 9-14 行附近。
+- 修改方式：
+  - 替换 `images/profile.jpg`，保持文件名不变；或
+  - 放入新文件，例如 `images/profile-new.jpg`，再把 `_config.yml` 第 28 行改成 `profile-new.jpg`。
+- 注意事项：头像路径默认会拼接 `/images/`，不要写成 `images/profile.jpg`，只写文件名即可。
+
+#### 姓名
+
+- 首页标题：`_pages/about.md` 第 3 行，字段 `title`。
+- 全站标题和默认作者名：`_config.yml` 第 12、14、29 行附近。
+- 作者数据备份：`_data/authors.yml` 第 3-4 行附近。
+- 搜索关键词：`Yanzhou Mu`
+- 注意事项：修改姓名时建议同步修改以上三个文件，否则页面标题、侧栏和结构化信息可能不一致。
+
+#### 职业身份
+
+- 首页正文：`_pages/about.md` 第 11 行附近。
+- 侧栏简介：`_config.yml` 第 31 行附近，字段 `author.bio`。
+- 作者数据备份：`_data/authors.yml` 第 6 行附近。
+- SEO 描述：`_config.yml` 第 15 行附近。
+- 搜索关键词：`Postdoctoral researcher`
+
+#### 邮箱
+
+- 首页 Contact：`_pages/about.md` 第 74-77 行附近。
+- 侧栏邮箱：`_config.yml` 第 35 行附近。
+- 作者数据备份：`_data/authors.yml` 第 5 行附近。
+- 搜索关键词：`mailto:`
+- 注意事项：邮箱正文和 `mailto:` 链接要保持一致。
+
+#### GitHub / Google Scholar / LinkedIn 等社交链接
+
+- 修改文件：`_config.yml`
+- 大致行号：
+  - Google Scholar：第 40 行，字段 `googlescholar`
+  - GitHub：第 56 行，字段 `github`
+  - LinkedIn：第 71 行，字段 `linkedin`
+  - ORCID：第 43 行，字段 `orcid`
+  - 其他社交平台：第 37-85 行附近
+- 渲染模板：`_includes/author-profile.html`
+  - Google Scholar：第 47-49 行附近
+  - GitHub：第 88-90 行附近
+  - LinkedIn：第 129 行以后
+- 修改方式：在 `_config.yml` 中填写用户名或 URL，空字段不会显示。
+- 注意事项：
+  - `github` 填用户名，例如 `muyanzhou96`，模板会自动生成 `https://github.com/...`。
+  - `googlescholar`、`orcid` 等字段通常填完整 URL。
+
+#### News 栏目
+
+- 显示位置：首页 Biography 下方。
+- 修改文件：`_pages/about.md`
+- 大致行号：第 17-24 行附近。
+- 搜索关键词：`News`
+- 修改方式：直接修改 Markdown 列表。
+- 注意事项：当前 News 是硬编码在首页中，没有独立 `_data/news.yml`，也没有自动截断逻辑。
+
+#### Research Interests / 研究兴趣
+
+- 显示位置：首页 `Research Areas`。
+- 修改文件：`_pages/about.md`
+- 大致行号：第 26-33 行附近。
+- 搜索关键词：`Research Areas`
+- 修改方式：修改 Markdown 列表项。
+
+#### Publications 简要展示
+
+- 当前首页未找到明确的 Publications 简要展示区块。
+- 完整发表列表在：`_pages/publications.html` 和 `_publications/`。
+- 如果以后想在首页加精选论文，建议在 `_pages/about.md` 的 `Research Areas` 后或 `Selected Projects` 前新增 Markdown 区块，或用 Liquid 从 `_publications/` 读取。
+
+#### Service / Academic Service 栏目
+
+- 显示位置：首页 `Service` 区域。
+- 修改文件：`_pages/about.md`
+- 大致行号：第 50-72 行附近。
+- 搜索关键词：`Service`
+- 修改方式：直接修改 Markdown 小标题和列表。
+
+#### 简历下载链接
+
+- 当前 `/cv-json/` 页面支持 PDF 下载按钮，但 `site.cv_pdf` 为空。
+- 控制字段：`_config.yml` 第 21 行附近，字段 `cv_pdf`。
+- 下载按钮模板：`_pages/cv-json.md` 第 15-23 行附近。
+- 当前 PDF 原始文件：`resume/main-en.pdf`，但 `resume/` 被排除，不会发布。
+- 建议公开简历路径：复制公开版 PDF 到 `files/Yanzhou_Mu_CV.pdf`，然后设置：
+
+```yaml
+cv_pdf: /files/Yanzhou_Mu_CV.pdf
+```
+
+- 注意事项：公开简历前检查 PDF 中是否包含不适合公开的信息。
+
+#### 页面底部信息
+
+- 修改文件：`_includes/footer.html`
+- 大致行号：第 3-24 行附近。
+- 显示内容：
+  - GitHub / Feed 链接：第 3-20 行附近
+  - Copyright 和站点更新时间：第 22-24 行附近
+- 站点名来源：`_config.yml` 第 14 行 `name` 或第 12 行 `title`。
+- 搜索关键词：`Site last updated`
+
+## 3. Publications / 发表列表如何修改
+
+#### 数据存放位置
+
+- 发表列表数据：`_publications/*.md`
+- 发表列表页面：`_pages/publications.html`
+- 单篇渲染模板：`_includes/archive-single.html`
+- CV 中的 publication 渲染模板：`_includes/archive-single-cv.html`
+- 分类标题配置：`_config.yml` 第 87-94 行附近，字段 `publication_category`
+
+#### 每篇论文的标题、作者、venue、年份在哪里改
+
+每篇论文一个 Markdown 文件，主要内容在文件开头的 YAML front matter。例子：
+
+- `_publications/2026-01-01-llm-centric-challenges.md`
+- 大致行号：第 1-11 行附近
+
+字段说明：
+
+- `title`：论文标题，第 2 行附近。
+- `category`：分类，例如 `manuscripts` 或 `conferences`，第 4 行附近。
+- `ccf`：CCF 标记，例如 `"A"`，第 5 行附近。
+- `status`：状态，例如 `"Major revision"`，如果有的话在第 6 行附近。
+- `date`：排序日期和显示年份，第 8-9 行附近。
+- `venue`：期刊或会议名称，第 9-10 行附近。
+- `citation`：作者列表和完整引用，第 10-11 行附近。
+
+#### 我的名字加粗在哪里实现
+
+- 主 publication 页面：`_includes/archive-single.html`
+- 大致行号：第 15-18 行附近。
+- 代码逻辑：渲染时把 `Yanzhou Mu` 和 `沐燕舟` 替换成 `<strong>...</strong>`。
+- CV publication 页面：`_includes/archive-single-cv.html`
+- 大致行号：第 15-18 行附近。
+- 注意事项：
+  - 通常不需要在每个 `_publications/*.md` 文件中手动写 `<strong>`。
+  - 如果以后姓名有缩写写法，需要在这两个模板中扩展替换规则。
+
+#### CCF-A 排序或标记在哪里实现
+
+- 标记字段：每篇 `_publications/*.md` 的 front matter 中添加 `ccf: "A"`。
+- 显示 CCF 标记：`_includes/archive-single.html` 第 48-49 行附近。
+- 排序和优先展示：`_pages/publications.html` 第 13-25 行附近。
+- 当前逻辑：
+  - 先 `sort: "date" | reverse`
+  - 先显示 `ccf: "A"` 的论文，并加标题 `CCF-A Publications`
+  - 非 CCF-A 论文再按 `_config.yml` 中的分类显示
+
+#### 新增论文模板
+
+新增论文时，在 `_publications/` 下新建一个 `.md` 文件。文件名建议：
+
+```text
+YYYY-MM-DD-short-title.md
+```
+
+可以参考如下格式：
+
+```markdown
+---
+title: "Paper Title"
+collection: publications
+category: conferences
+ccf: "A"
+permalink: /publication/YYYY-MM-DD-short-title
+excerpt: "One-sentence summary of this paper."
+date: YYYY-MM-DD
+venue: "Conference or Journal Name"
+citation: "Author A, Yanzhou Mu, Author C. Paper Title. Conference or Journal Name, YYYY."
+---
+
+This publication is listed from the LaTeX resume or another verified source.
+```
+
+如果不是 CCF-A 论文，不要写 `ccf: "A"`。如果是 major revision，可以加：
+
+```yaml
+status: "Major revision"
+```
+
+#### 删除论文
+
+- 删除对应的 `_publications/*.md` 文件即可。
+- 不要只删除 `citation`，否则页面可能仍显示空条目。
+- 删除前确认没有其他页面或 CV 引用该条目。
+
+#### 调整论文顺序
+
+- 同一组内按 `date` 倒序。
+- 修改顺序最稳妥的方式是调整对应论文文件中的 `date` 字段。
+- 如果要改变整体排序规则，修改 `_pages/publications.html` 第 13-52 行附近。
+
+#### BibTeX / Markdown / YAML 说明
+
+- 当前网站正式发表列表来自 `_publications/*.md`，不是 BibTeX。
+- `files/bibtex1.bib` 是示例文件，不是正式数据源。
+- `markdown_generator/publications.tsv` 和相关 notebook / script 是生成工具或模板遗留，不是当前完整发表列表的权威来源。
+
+## 4. News 栏目如何修改
+
+- News 存放位置：`_pages/about.md`
+- 大致行号：第 17-24 行附近。
+- 搜索关键词：`News`
+- 当前实现：硬编码 Markdown 列表，不是独立数据文件。
+- 当前显示数量：手动维护为 5 条，没有自动“只显示最新五条”的代码。
+
+#### 新增一条 News
+
+在 `News` 标题下新增一行，例如：
+
+```markdown
+* 2026.06 🎉 Our paper is accepted to TOSEM.
+```
+
+#### 删除一条 News
+
+删除对应的 `* YYYY.MM ...` 那一行即可。
+
+#### 调整 News 顺序
+
+- 手动按时间倒序排列。
+- 日期格式统一使用 `YYYY.MM`，例如 `2026.05`。
+- 同一个月份有多条时，把更重要的放前面。
+
+#### emoji
+
+- 可以保留 emoji，例如 `🎉`。
+- 建议 emoji 前后保留空格，让正文易读。
+
+## 5. Service / Academic Service 如何修改
+
+- Service 存放位置：`_pages/about.md`
+- 大致行号：第 50-72 行附近。
+- 搜索关键词：`Service`
+
+#### Journal Reviewer
+
+- 位置：`_pages/about.md` 第 53-56 行附近。
+- 搜索关键词：`Journal Reviewer`
+- 新增示例：
+
+```markdown
+* IEEE Transactions on Software Engineering (TSE)
+```
+
+#### Conference Service / PC Member
+
+- 位置：`_pages/about.md` 第 58-68 行附近。
+- 搜索关键词：`Conference Service / Reviewing`
+- PC Member 新增示例：
+
+```markdown
+* 2027: Program Committee Member, ASE
+```
+
+#### Shadow PC
+
+- 当前位置：`_pages/about.md` 第 64 行附近。
+- 新增示例：
+
+```markdown
+* 2027: Shadow PC, ICSE
+```
+
+#### Co-reviewer
+
+- 当前位置：`_pages/about.md` 第 65-68 行、第 72 行附近。
+- 新增示例：
+
+```markdown
+* 2027: Co-reviewer, ISSTA
+```
+
+#### 注意事项
+
+- 不要把 `Co-reviewer` 写成 `Program Committee Member`。
+- 不要把 `Shadow PC` 写成正式 `Program Committee Member`。
+- 如果角色不确定，先写中性表述或暂不添加。
+
+## 6. 个人基本信息如何修改
+
+| 内容 | 文件路径 | 大致行号 | 搜索关键词 | 注意事项 |
+| --- | --- | --- | --- | --- |
+| 网站作者姓名 | `_config.yml` | 第 12、14、29 行 | `Yanzhou Mu` | 同步 `_pages/about.md` 第 3 行和 `_data/authors.yml` 第 3-4 行 |
+| 网站标题 | `_config.yml` | 第 12 行 | `title` | 影响 `<title>` 和 Open Graph |
+| 网站描述 | `_config.yml` | 第 15 行 | `description` | 影响默认 SEO description |
+| 首页 description | `_pages/about.md` | 第 4 行 | `description` | 首页会优先使用 page description |
+| 邮箱 | `_config.yml`、`_pages/about.md`、`_data/authors.yml` | `_config.yml` 第 35 行；`_pages/about.md` 第 77 行；`_data/authors.yml` 第 5 行 | `email` 或 `mailto:` | 三处建议同步 |
+| 头像 | `_config.yml`、`images/` | `_config.yml` 第 28 行 | `avatar` | 当前头像文件是 `images/profile.jpg` |
+| 简历文件 | `_config.yml`、`files/`、`_pages/cv-json.md` | `_config.yml` 第 21 行；`_pages/cv-json.md` 第 15-23 行 | `cv_pdf` | `resume/` 被排除，公开 PDF 建议放 `files/` |
+| Google Scholar | `_config.yml` | 第 40 行 | `googlescholar` | 填完整 URL |
+| GitHub | `_config.yml` | 第 56 行 | `github` | 填用户名，模板自动生成链接 |
+| LinkedIn | `_config.yml` | 第 71 行 | `linkedin` | 填用户名，模板自动生成链接 |
+| ORCID | `_config.yml` | 第 43 行 | `orcid` | 填完整 URL 或模板支持的值 |
+| SEO title | `_includes/seo.html`、`_config.yml`、页面 front matter | `_includes/seo.html` 第 9-21 行；`_config.yml` 第 12-15 行 | `seo_title` | 通常改 `_config.yml` 和页面 `title`，不要直接改模板 |
+| SEO description | `_includes/seo.html`、`_config.yml`、页面 front matter | `_includes/seo.html` 第 23-30 行；`_config.yml` 第 15 行 | `seo_description` | 页面 description 优先于站点 description |
+| favicon / 网站图标 | `images/favicon.svg`、`images/favicon.ico`、`images/favicon-*.png`、`images/manifest.json` | `favicon.svg` 第 1-4 行；`manifest.json` 第 11-16 行 | `favicon` | 替换图标时保持路径或同步 manifest |
+| 导航栏菜单 | `_data/navigation.yml` | 第 10-18 行 | `main:` | 修改后检查顶部导航 |
+
+## 7. 页面导航如何修改
+
+- 导航栏数据文件：`_data/navigation.yml`
+- 大致行号：第 10-18 行附近。
+- 搜索关键词：`main:`
+
+#### 新增一个导航入口
+
+在 `main:` 下添加：
+
+```yaml
+  - title: "News"
+    url: /news/
+```
+
+如果新增的是独立页面，还需要在 `_pages/` 下创建页面文件，例如 `_pages/news.md`：
+
+```markdown
+---
+layout: archive
+title: "News"
+permalink: /news/
+author_profile: true
+---
+
+页面内容写这里。
+```
+
+#### 删除一个导航入口
+
+删除 `_data/navigation.yml` 中对应的两行 `title` 和 `url`。
+
+#### 调整导航顺序
+
+直接调整 `_data/navigation.yml` 中 `main:` 下各条目的顺序。
+
+#### 新增页面需要注意
+
+- `_config.yml` 第 166-169 行 include 了 `_pages`，所以 `_pages/` 下页面会被 Jekyll 处理。
+- 页面必须有 front matter，也就是文件开头的 `---` 区块。
+- `permalink` 要和导航里的 `url` 对上。
+
+## 8. 图片、头像、PDF 简历等资源如何替换
+
+#### 头像
+
+- 当前头像显示文件：`images/profile.jpg`
+- 配置位置：`_config.yml` 第 28 行，`author.avatar: "profile.jpg"`
+- 渲染模板：`_includes/author-profile.html` 第 9-14 行。
+- 推荐做法：
+  - 直接替换 `images/profile.jpg`；或
+  - 新增 `images/profile-2026.jpg`，然后改 `_config.yml` 第 28 行为 `profile-2026.jpg`。
+
+#### 简历 PDF
+
+- 当前原始 PDF：`resume/main-en.pdf`
+- 公开附件推荐位置：`files/Yanzhou_Mu_CV.pdf`
+- 配置位置：`_config.yml` 第 21 行，字段 `cv_pdf`
+- 下载按钮位置：`_pages/cv-json.md` 第 15-23 行。
+- 注意事项：
+  - `resume/` 在 `_config.yml` 第 195-196 行附近被排除，不适合直接作为公开下载路径。
+  - 公开 PDF 前先移除不适合公开的信息。
+
+#### favicon / 网站图标
+
+- SVG 图标：`images/favicon.svg`
+- PNG 图标：`images/favicon-192x192.png`、`images/favicon-512x512.png` 等。
+- ICO 图标：`images/favicon.ico`
+- manifest：`images/manifest.json` 第 11-16 行。
+- 替换时建议保留同名文件，避免同步修改多处路径。
+
+#### 其他附件
+
+- 论文 PDF、slides、BibTeX 等公开资源建议放在 `files/`。
+- 在 `_publications/*.md` 中可以使用字段：
+  - `paperurl`
+  - `slidesurl`
+  - `bibtexurl`
+- `_includes/archive-single.html` 第 60-85 行附近会根据这些字段自动显示下载链接。
+
+#### 避免路径导致构建失败
+
+- Jekyll 内部路径建议以 `/files/...` 或 `/images/...` 开头。
+- `_config.yml` 中的 `author.avatar` 只写图片文件名，因为模板会自动拼接 `/images/`。
+- 修改路径后运行 `bundle exec jekyll build` 检查。
+
+## 9. 样式如何调整
+
+- 全站样式入口：`assets/css/main.scss`
+  - 大致行号：第 11-43 行，负责导入 `_sass/` 文件。
+- 主题颜色：`_sass/theme/`
+  - 主题选择在 `_config.yml` 第 11 行，字段 `site_theme`。
+- 页面布局样式：`_sass/layout/`
+  - `_sass/layout/_page.scss`
+  - `_sass/layout/_archive.scss`
+  - `_sass/layout/_sidebar.scss`
+  - `_sass/layout/_masthead.scss`
+  - `_sass/layout/_footer.scss`
+- Publications 样式：
+  - 主要由 `_sass/layout/_archive.scss` 控制 archive item。
+  - 内容结构由 `_includes/archive-single.html` 控制。
+- News / Service 样式：
+  - 当前没有单独样式，使用 Markdown 标题和列表的默认样式。
+  - 若只是改文字，不需要改 CSS。
+- JavaScript 源文件：`assets/js/_main.js`
+  - 主题切换和 Plotly 逻辑在第 1-80 行附近。
+- 不建议随意修改：
+  - `assets/js/main.min.js`，这是压缩产物。
+  - `_sass/vendor/`，这是第三方/vendor 样式。
+  - `_includes/seo.html`，除非明确要改 SEO 模板逻辑。
+
+## 10. 本地预览和构建命令
+
+#### Ruby / Jekyll 依赖
+
+依赖文件：`Gemfile` 第 1-13 行。
+
+安装依赖：
+
+```bash
+bundle install
+```
+
+本地预览：
+
+```bash
+bundle exec jekyll serve -l -H localhost
+```
+
+然后打开：
+
+```text
+http://localhost:4000
+```
+
+本地构建：
+
+```bash
+bundle exec jekyll build
+```
+
+注意：如果本机 Ruby 环境报 `eventmachine`、`ruby/config.h`、OpenSSL 或 Command Line Tools 相关错误，优先检查 Ruby 开发环境，而不是先改页面内容。
+
+#### Python notebook / talkmap
+
+依赖文件：`requirements.txt` 第 1-5 行。
+
+安装依赖：
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+执行 talkmap notebook：
+
+```bash
+python -m jupyter nbconvert --to notebook --execute talkmap.ipynb --output talkmap_out.ipynb
+```
+
+GitHub Actions 中对应流程在 `.github/workflows/scrape_talks.yml`：
+
+- Python 版本：第 31-35 行，当前是 Python 3.11。
+- 安装依赖：第 37-42 行。
+- 执行 notebook：第 43-46 行。
+- 自动提交 talkmap 结果：第 48-55 行。
+- 只有 `_talks` 中存在 talk 文件时才运行，判断逻辑在第 21-29 行。
+
+#### JavaScript assets
+
+依赖和命令在 `package.json`：
+
+- 依赖：第 24-32 行。
+- 脚本：第 34-37 行。
+
+安装依赖：
+
+```bash
+npm install
+```
+
+重新压缩 JS：
+
+```bash
+npm run build:js
+```
+
+当前没有 `npm run build` 脚本，只有 `build:js`。
+
+## 11. 修改前后的检查清单
+
+每次修改主页后建议检查：
+
+- [ ] `git status --short` 中只包含本次相关文件。
+- [ ] 没有误删 `resume/` 文件夹。
+- [ ] 首页能打开，Biography、News、Research Areas、Service 显示正常。
+- [ ] 头像能显示，路径仍指向 `images/` 下存在的文件。
+- [ ] 邮箱链接能点击，`mailto:` 地址正确。
+- [ ] 如果启用了简历下载，PDF 路径能打开并且不在 `resume/` 排除目录下。
+- [ ] Publications 页面能显示全部论文。
+- [ ] `_publications/` 文件数没有被误删。
+- [ ] `Yanzhou Mu` / `沐燕舟` 在 publication citation 中仍然加粗。
+- [ ] CCF-A 论文仍在 `CCF-A Publications` 区块靠前显示。
+- [ ] News 只保留想展示的最新条目，并按 `YYYY.MM` 倒序排列。
+- [ ] Service 中 `Program Committee Member`、`Shadow PC`、`Co-reviewer` 身份写准确。
+- [ ] 顶部导航链接能打开。
+- [ ] 没有模板作者信息残留在公开页面中。
+- [ ] 没有把手机号、详细地址、出生日期等敏感信息加入公开页面。
+- [ ] 能运行 `git diff --check`，没有多余空白或语法异常。
+- [ ] 能运行 `bundle exec jekyll build`，或明确知道失败来自本地 Ruby 环境。
+
+## 12. 常见修改场景速查表
+
+| 想修改的内容 | 应该修改的文件 | 大致行号 / 搜索关键词 | 修改方式 | 注意事项 |
+| --- | --- | --- | --- | --- |
+| 修改首页简介 | `_pages/about.md` | 第 11-15 行；搜索 `I am a postdoctoral researcher` | 直接改 Markdown 正文 | 链接用 Markdown，不要裸露 URL |
+| 修改头像 | `_config.yml`、`images/` | `_config.yml` 第 28 行；搜索 `avatar` | 替换 `images/profile.jpg` 或改文件名 | `avatar` 只写文件名 |
+| 修改邮箱 | `_pages/about.md`、`_config.yml`、`_data/authors.yml` | about 第 77 行；config 第 35 行；authors 第 5 行 | 同步改邮箱和 `mailto:` | 三处保持一致 |
+| 修改导师链接 | `_pages/about.md` | 第 11-13 行；搜索导师姓名 | 使用 `[姓名](URL)` | 不要在正文裸露 URL |
+| 新增 News | `_pages/about.md` | 第 17-24 行；搜索 `News` | 加一行 `* YYYY.MM ...` | 手动保持倒序 |
+| 删除 News | `_pages/about.md` | 第 17-24 行 | 删除对应列表项 | 当前没有自动截断 |
+| 新增论文 | `_publications/` | 参考任一 `_publications/*.md` | 新建 `YYYY-MM-DD-title.md` | front matter 必须完整 |
+| 修改论文作者 | `_publications/*.md` | 搜索论文标题或 `citation:` | 修改 `citation` 字段 | 保持作者顺序 |
+| 修改论文排序 | `_publications/*.md`、`_pages/publications.html` | publication 文件中的 `date`；publications 第 13-25 行 | 优先改 `date` | 大改排序逻辑前先备份 |
+| 修改 CCF-A 标记 | `_publications/*.md` | 搜索 `ccf:` | 添加或删除 `ccf: "A"` | 未确认的论文不要强行标 A |
+| 新增 Service | `_pages/about.md` | 第 50-72 行；搜索 `Service` | 在对应类别加列表项 | 不要混淆 PC、Shadow PC、Co-reviewer |
+| 修改简历 PDF | `files/`、`_config.yml`、`_pages/cv-json.md` | config 第 21 行；cv-json 第 15-23 行 | PDF 放 `files/`，设置 `cv_pdf` | `resume/` 不公开 |
+| 修改导航栏 | `_data/navigation.yml` | 第 10-18 行；搜索 `main:` | 添加/删除/移动条目 | 新页面需有 front matter 和 permalink |
+| 修改网站标题 | `_config.yml`、页面 front matter | config 第 12 行；about 第 3 行 | 修改 `title` | 影响 SEO 和浏览器标题 |
+| 修改 SEO 描述 | `_config.yml`、`_pages/about.md` | config 第 15 行；about 第 4 行 | 修改 `description` | 页面 description 优先 |
+| 修改 favicon | `images/favicon.svg`、`images/favicon.ico`、`images/favicon-*.png`、`images/manifest.json` | favicon.svg 第 1-4 行；manifest 第 11-16 行 | 替换同名文件最稳妥 | 同步 manifest 图标路径 |
+| 本地预览 | `Gemfile` | README 第 7-21 行也有命令 | `bundle exec jekyll serve -l -H localhost` | 改 `_config.yml` 后重启服务 |
+| 本地构建 | `Gemfile` | 搜索 `bundle exec jekyll build` | `bundle exec jekyll build` | native gem 报错先查 Ruby 环境 |
+
+## 13. 目前未找到明确位置的内容
+
+- 首页没有独立的 Publications 简要展示区块；完整列表在 `/publications/`。
+- 当前没有独立 `_data/news.yml`；News 写死在 `_pages/about.md`。
+- 当前没有独立 `_data/service.yml`；Service 写死在 `_pages/about.md`。
+- 当前没有公开简历下载 PDF 路径；`_config.yml` 中 `cv_pdf` 为空。
+- 当前没有明确的 Google Scholar、GitHub、LinkedIn、ORCID 配置值；这些字段在 `_config.yml` 中存在但为空。
+
