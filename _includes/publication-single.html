@@ -75,7 +75,9 @@
 </h2>
 
 {% if authors_line != "" %}
-  <p class="publication__item-authors">{{ authors_line }}</p>
+  <p class="publication__item-authors">{{ authors_line }}{% if post.co_first_author %} <span class="publication__item-badge">Co-first author</span>{% endif %}</p>
+{% elsif post.co_first_author %}
+  <p class="publication__item-authors"><span class="publication__item-badge">Co-first author</span></p>
 {% endif %}
 
 {% if publication_venue != "" %}

@@ -3,6 +3,7 @@ title: "Can test input selection methods for deep neural network guarantee test 
 collection: publications
 category: manuscripts
 sortorder: 800
+co_first_author: true
 permalink: /publication/2022-01-03-test-input-selection-diversity
 excerpt: "A large-scale empirical study of test input selection methods for deep neural networks."
 date: 2022-01-03

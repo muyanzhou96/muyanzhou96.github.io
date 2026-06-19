@@ -3,6 +3,7 @@ title: "Revisiting heterogeneous defect prediction methods: How far are we?"
 collection: publications
 category: manuscripts
 sortorder: 700
+co_first_author: true
 permalink: /publication/2021-01-02-heterogeneous-defect-prediction
 excerpt: "A revisiting study of heterogeneous defect prediction methods."
 date: 2021-01-02

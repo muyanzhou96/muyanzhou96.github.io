@@ -1,6 +1,6 @@
 ---
 title: "LLM Generalization Testing Tool for MindSpore"
-excerpt: "Ongoing project. Student leader. Developed a component-based generalization testing tool for large-scale models on MindSpore."
+excerpt: "Completed project. Student leader. Developed a component-based generalization testing tool for large-scale models on MindSpore."
 collection: portfolio
 ---
 

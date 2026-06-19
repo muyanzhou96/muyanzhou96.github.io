@@ -3,6 +3,7 @@ title: "Do different cross-project defect prediction methods identify the same d
 collection: publications
 category: manuscripts
 sortorder: 600
+co_first_author: true
 permalink: /publication/2020-01-01-cross-project-defect-prediction
 excerpt: "A study of whether different cross-project defect prediction methods identify the same defective modules."
 date: 2020-01-01

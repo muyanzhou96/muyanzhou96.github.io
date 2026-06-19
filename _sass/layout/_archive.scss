@@ -78,6 +78,18 @@
   font-size: $type-size-6;
 }
 
+.publication__item-badge {
+  display: inline-block;
+  margin-left: 0.35em;
+  padding: 0.05em 0.45em;
+  border: 1px solid var(--global-border-color);
+  border-radius: $border-radius;
+  font-size: 0.85em;
+  font-style: normal;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
 .archive__item-teaser {
   border-radius: $border-radius;
   overflow: hidden;
