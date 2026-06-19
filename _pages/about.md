@@ -8,7 +8,7 @@ redirect_from:
   - /about.html
 ---
 
-I am an InnoCORE Postdoctoral Researcher in Computer Science and Engineering at UNIST, supervised by Prof. [Mijung Kim](https://mijungk.github.io/). I received my Ph.D. from Nanjing University in June 2026 under the supervision of [Prof. Zhenyu Chen](https://scholar.google.com/citations?user=HQWxCnkAAAAJ&hl=en) and [Prof. Chunrong Fang](https://chunrong.github.io/). My current research primarily focuses on **Quality Assurance for AI Infrastructure**.
+I am an InnoCORE Postdoctoral Researcher in Computer Science and Engineering at UNIST, supervised by [Prof. Mijung Kim](https://mijungk.github.io/). I received my Ph.D. from Nanjing University in June 2026 under the supervision of [Prof. Zhenyu Chen](https://scholar.google.com/citations?user=HQWxCnkAAAAJ&hl=en) and [Prof. Chunrong Fang](https://chunrong.github.io/). My current research primarily focuses on **Quality Assurance for AI Infrastructure**.
 
 Before that, I received my master's degree from the College of Intelligence and Computing at Tianjin University, where I was supervised by Prof. Zan Wang, [Prof. Shuang Liu](https://scholar.google.com/citations?hl=en&user=-cw2GtwAAAAJ), and [Prof. Junjie Chen](https://sites.google.com/site/junjiechen08/). I received my bachelor's degree from Nantong University under the supervision of [Prof. Xiang Chen](https://xchencs.github.io/index.html).
 
@@ -16,7 +16,7 @@ I welcome inquiries from self-motivated undergraduate and graduate students who 
 
 News
 ======
-
+* 2026.06 🎉 Our paper is accepted to ASE 2026.
 * 2026.06 Joined UNIST as an InnoCORE Postdoctoral Researcher.
 * 2026.06 🎉 Our paper is accepted to TOSEM.
 * 2025.12 🎉 Our paper is accepted to TSE.
@@ -28,14 +28,6 @@ Research Areas
 * Software testing
 * SE for AI
 * AI for SE
-
-Selected Projects
-======
-
-* MindSpore Network Generalization Testing Technology
-* Research on Key Mutation Testing Techniques for DL Frameworks
-* Fast Detection, Localization, and Patch Generation for Concurrency Defects
-* LLM Generalization Testing Tool for MindSpore
 
 Education/Work Experience
 ======
