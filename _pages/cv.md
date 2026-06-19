@@ -13,43 +13,51 @@ redirect_from:
 Profile
 ======
 
-Yanzhou Mu is a doctoral student in Software Engineering at Nanjing University. His research direction is software testing, with work on deep learning framework testing, model mutation, metamorphic testing, heuristic scheduling, and testing tools for MindSpore and PyTorch-based workflows.
+I am an InnoCORE Postdoctoral Researcher in Computer Science and Engineering at UNIST, supervised by [Prof. Mijung Kim](https://mijungk.github.io/). I received my Ph.D. from Nanjing University in June 2026 under the supervision of [Prof. Zhenyu Chen](https://scholar.google.com/citations?user=HQWxCnkAAAAJ&hl=en) and [Prof. Chunrong Fang](https://chunrong.github.io/). My current research primarily focuses on **Quality Assurance for AI Infrastructure**.
 
-Education
+Before that, I received my master's degree from the College of Intelligence and Computing at Tianjin University, where I was supervised by Prof. Zan Wang, [Prof. Shuang Liu](https://scholar.google.com/citations?hl=en&user=-cw2GtwAAAAJ), and [Prof. Junjie Chen](https://sites.google.com/site/junjiechen08/). I received my bachelor's degree from Nantong University under the supervision of [Prof. Xiang Chen](https://xchencs.github.io/index.html).
+
+Contact and Links
 ======
 
-* Ph.D. Student in Software Engineering, Nanjing University, Software College, 2022.09-2026.06
-  * Mentors: Zhenyu Chen, Chunrong Fang
-* Master in Software Engineering, Tianjin University, Department of Intelligence and Computing, 2019.09-2022.01
-  * Mentors: Zang Wang, Junjie Chen
-* Bachelor in Computer Science and Technology, Nantong University, School of Computer Science and Technology, 2015.09-2019.06
-  * Mentor: Xiang Chen
+* Email: [602022320006@smail.nju.edu.cn](mailto:602022320006@smail.nju.edu.cn)
+* Affiliation: [UNIST](https://www.unist.ac.kr/unist/index.do)
+* Google Scholar: [Google Scholar](https://scholar.google.com/citations?hl=en&user=TpNcaesAAAAJ&view_op=list_works&gmla=ACrTK9UsCwPykEpSqq3sP4-1r1JCngs_91R_FWRQ7R4ytmPOgEoUSNN-CY3RTdkSvYjSk8hPTSqbcmhmaaCn82G-)
+* ORCID: [0000-0003-1816-2246](https://orcid.org/0000-0003-1816-2246)
+
+Education and Experience
+======
+
+* InnoCORE Project Postdoctoral Researcher, Department of Computer Science and Engineering, UNIST, 2026.06-2026.11
+  * Supervisor: Prof. Mijung Kim
+* Ph.D. in Software Engineering, Nanjing University, 2022.09-2026.06
+  * Supervisors: Prof. Zhenyu Chen, Prof. Chunrong Fang
+* Master's degree, College of Intelligence and Computing, Tianjin University, 2019.09-2022.01
+  * Supervisors: Prof. Zan Wang, Prof. Shuang Liu, Prof. Junjie Chen
+* Bachelor's degree, Nantong University, 2015.09-2019.06
+  * Supervisor: Prof. Xiang Chen
 
 Research and Technical Areas
 ======
 
+* Quality assurance for AI infrastructure
 * Software testing
-* Deep learning framework testing
-* Model mutation
-* Metamorphic testing
-* Heuristic scheduling for concurrency testing
-* MindSpore network generalization testing
-* PyTorch-based cross-framework validation
+* SE for AI
+* AI for SE
 
 Project Experience
 ======
 
-* MindSpore Network Generalization Testing Technology, completed, student leader
-  * Developed a network structure generalization tool based on MindSpore.
-  * Extracted feature factors, ranges, and constraints from mainstream CV and NLP network architectures.
-  * Modified network structures and performed testing to detect defects.
-  * The project results supported the collaboration team in winning the Huawei 2023 Innovation Testing Application Award.
+* MindSpore Model Generalization Testing Technology, completed, student leader
+  * Developed a model structure generalization tool based on the domestic deep learning framework MindSpore.
+  * Extracted feature factors, ranges, and constraints of mainstream CV and NLP model architectures.
+  * Modified model structures and performed testing to detect defects.
+  * The project results were an essential part in supporting the collaboration team to win the Huawei 2023 Innovation Testing Application Award.
 
 * Research on Key Mutation Testing Techniques for DL Frameworks, ongoing, student leader
-  * Designed mutation rules that simulate actual user development operations.
-  * Generated test models aligned with practical development scenarios.
-  * Evaluated diversity and sufficiency of test data using static and dynamic framework features.
-  * Used heuristic methods and experience replay to improve mutation testing efficiency and quality.
+  * Designed mutation rules that simulate actual user development operations to generate test models aligned with practical scenarios.
+  * Evaluated the diversity and sufficiency of test data by integrating static and dynamic framework features.
+  * Combined heuristic methods and experience replay to improve testing efficiency and quality.
   * Project results were published at ASE 2024, and a patent application for an invention is underway.
 
 * Fast Detection, Localization, and Patch Generation for Concurrency Defects, completed, project participant
@@ -57,19 +65,48 @@ Project Experience
   * Improved detection efficiency and effectiveness.
   * Project results were published at QRS 2021 and granted an invention patent.
 
-* LLM Generalization Testing Tool for MindSpore, ongoing, student leader
+* LLM Generalization Testing Tool for MindSpore, completed, student leader
   * Developed a component-based generalization testing tool for large-scale models on MindSpore.
-  * Enabled automated mutation and recombination of model structures including layers, shapes, and parameters under defined constraints.
-  * Built cross-framework validation pipelines by generating equivalent training scripts in PyTorch.
-  * Conducted comparative analysis to detect training failures and accuracy anomalies.
-  * Designed iterative strategies to identify fault-inducing factors and support diagnosis across functionality, performance, and numerical accuracy.
+  * Enabled automated mutation and recombination of model structures such as layers, shapes, and parameters under defined constraints.
+  * Built cross-framework validation pipelines by generating equivalent training scripts in PyTorch and conducting comparative analysis to detect training failures and accuracy anomalies.
+  * Designed iterative strategies to identify fault-inducing factors and support multi-dimensional issue diagnosis across functionality, performance, and numerical accuracy.
+
+Academic Service
+======
+
+**Journal Reviewer**
+
+* ACM Computing Surveys (CSUR)
+* IEEE Transactions on Dependable and Secure Computing (TDSC)
+
+**Conference Service / Reviewing**
+
+* 2026: Shadow PC, ICSE
+* 2026: Co-reviewer, ISSTA
+* 2026: Co-reviewer, ICSE
+* 2025: Co-reviewer, PROMISE
+* 2025: Co-reviewer, FSE
+
+**Other Reviewing**
+
+* Co-reviewer, Journal of Software
+
+Awards and Honors
+======
+
+* Huawei 2023 Innovation Testing Application Award: project results from MindSpore Model Generalization Testing Technology supported the collaboration team in winning this award.
 
 Publications
 ======
 
-<ul>{% for post in site.publications reversed %}
-  {% include archive-single-cv.html %}
-{% endfor %}</ul>
+<ul>
+{% assign cv_publications_with_sortorder = site.publications | where_exp: "post", "post.sortorder" | sort: "sortorder" | reverse %}
+{% assign cv_publications_with_sortorder = cv_publications_with_sortorder | group_by: "sortorder" %}
+{% for post in cv_publications_with_sortorder %}
+  {% include publications-cv-by-fallback-order.html sortorder=post.name %}
+{% endfor %}
+{% include publications-cv-by-fallback-order.html missing_sortorder=true %}
+</ul>
 
 Patents
 ======

@@ -14,6 +14,9 @@
 
 {% assign citation = post.citation %}
 {% if citation %}
+  {% if post.co_first_author %}
+    {% assign citation = citation | replace: " Co-first Author.", "" | replace: " Co-first author.", "" %}
+  {% endif %}
   {% assign citation = citation | replace: "Yanzhou Mu", "<strong>Yanzhou Mu</strong>" | replace: "沐燕舟", "<strong>沐燕舟</strong>" %}
 {% endif %}
 
@@ -41,7 +44,7 @@
     {% if post.read_time %}
       <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> {% include read-time.html %}</p>
     {% endif %}
-    {% if post.venue%}<p class="archive__item-excerpt" itemprop="description">{{ citation }}</p> {% endif %}
+    {% if post.venue%}<p class="archive__item-excerpt" itemprop="description">{{ citation }}{% if post.co_first_author %} <span class="publication__item-badge">Co-first author</span>{% endif %}</p> {% endif %}
     </li>
  </article>
 </div>
