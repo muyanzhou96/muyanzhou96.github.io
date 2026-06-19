@@ -1,0 +1,77 @@
+{% assign publications_by_date = site.publications | sort: "date" | reverse %}
+
+{% if include.missing_sortorder %}
+  {% assign show_missing_sortorder = true %}
+{% else %}
+  {% assign show_missing_sortorder = false %}
+  {% assign target_sortorder = include.sortorder | plus: 0 %}
+{% endif %}
+
+{% for post in publications_by_date %}
+  {% if show_missing_sortorder %}
+    {% if post.sortorder %}
+      {% continue %}
+    {% endif %}
+  {% else %}
+    {% unless post.sortorder %}
+      {% continue %}
+    {% endunless %}
+    {% assign post_sortorder = post.sortorder | plus: 0 %}
+    {% if post_sortorder != target_sortorder %}
+      {% continue %}
+    {% endif %}
+  {% endif %}
+
+  {% if post.ccf == "A" %}
+    {% include archive-single.html %}
+  {% endif %}
+{% endfor %}
+
+{% if site.publication_category %}
+  {% for category in site.publication_category %}
+    {% for post in publications_by_date %}
+      {% if show_missing_sortorder %}
+        {% if post.sortorder %}
+          {% continue %}
+        {% endif %}
+      {% else %}
+        {% unless post.sortorder %}
+          {% continue %}
+        {% endunless %}
+        {% assign post_sortorder = post.sortorder | plus: 0 %}
+        {% if post_sortorder != target_sortorder %}
+          {% continue %}
+        {% endif %}
+      {% endif %}
+
+      {% if post.category != category[0] %}
+        {% continue %}
+      {% endif %}
+      {% if post.ccf == "A" %}
+        {% continue %}
+      {% endif %}
+      {% include archive-single.html %}
+    {% endfor %}
+  {% endfor %}
+{% else %}
+  {% for post in publications_by_date %}
+    {% if show_missing_sortorder %}
+      {% if post.sortorder %}
+        {% continue %}
+      {% endif %}
+    {% else %}
+      {% unless post.sortorder %}
+        {% continue %}
+      {% endunless %}
+      {% assign post_sortorder = post.sortorder | plus: 0 %}
+      {% if post_sortorder != target_sortorder %}
+        {% continue %}
+      {% endif %}
+    {% endif %}
+
+    {% if post.ccf == "A" %}
+      {% continue %}
+    {% endif %}
+    {% include archive-single.html %}
+  {% endfor %}
+{% endif %}

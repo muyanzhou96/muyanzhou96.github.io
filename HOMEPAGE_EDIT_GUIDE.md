@@ -196,6 +196,7 @@ cv_pdf: /files/Yanzhou_Mu_CV.pdf
 
 - 发表列表数据：`_publications/*.md`
 - 发表列表页面：`_pages/publications.html`
+- 排序辅助模板：`_includes/publications-by-fallback-order.html`
 - 单篇列表入口模板：`_includes/archive-single.html`
 - Publications 三行列表模板：`_includes/publication-single.html`
 - CV 中的 publication 渲染模板：`_includes/archive-single-cv.html`
@@ -213,6 +214,7 @@ cv_pdf: /files/Yanzhou_Mu_CV.pdf
 - `title`：论文标题，第 2 行附近。
 - `category`：分类，例如 `manuscripts` 或 `conferences`，第 4 行附近。
 - `ccf`：CCF 标记，例如 `"A"`，第 5 行附近。
+- `sortorder`：手动排序值，整数越大越靠前；只影响列表顺序，不会显示在网页上。
 - `status`：状态，例如 `"Major revision"`，如果有的话在第 6 行附近。
 - `date`：排序日期和显示年份，第 8-9 行附近。
 - `venue`：期刊或会议名称，第 9-10 行附近。
@@ -236,47 +238,61 @@ cv_pdf: /files/Yanzhou_Mu_CV.pdf
 
 - 标记字段：每篇 `_publications/*.md` 的 front matter 中添加 `ccf: "A"`。
 - 显示 CCF 标记：`_includes/publication-single.html` 第 33-53 行附近。
-- 排序和优先展示：`_pages/publications.html` 第 13-25 行附近。
-- 当前逻辑：
-  - 先 `sort: "date" | reverse`
-  - 先显示 `ccf: "A"` 的论文，并加标题 `CCF-A Publications`
-  - 非 CCF-A 论文再按 `_config.yml` 中的分类显示
+- 排序逻辑入口：`_pages/publications.html` 第 13-19 行附近。
+- fallback 排序逻辑：`_includes/publications-by-fallback-order.html` 第 1-77 行附近。
+- 当前 fallback 逻辑：
+  - 同一个 `sortorder` 内先显示 `ccf: "A"` 的论文。
+  - 非 CCF-A 论文再按 `_config.yml` 中 `publication_category` 的分类顺序显示。
+  - 同组内按 `date` 倒序。
 
-### 如何手动调整 Publications 显示顺序
+### 如何使用 sortorder 手动调整 Publications 顺序
 
-当前 Publications 列表不是由文件名直接排序，也不是由 `_site/` 中的 HTML 决定。真实逻辑在 `_pages/publications.html`：
+`sortorder` 是 Publications 列表的手动排序字段。它写在每篇论文的 `_publications/*.md` front matter 中，只控制 `/publications/` 列表顺序，不会显示在网页正文里。
 
-- 大致行号：第 13 行附近
-- 搜索关键词：`site.publications | sort: "date" | reverse`
-- 当前代码：`{% assign publications = site.publications | sort: "date" | reverse %}`
+示例：
 
-当前显示顺序分两层：
+```yaml
+sortorder: 1000
+```
 
-- 第一层：`ccf: "A"` 的论文先显示在 `CCF-A Publications` 区块。
-- 第二层：非 CCF-A 论文再按 `_config.yml` 中 `publication_category` 的分类顺序显示。
-- 每个区块内部：按每篇论文 front matter 中的 `date` 倒序排列。
+请写成 YAML 整数，不要加引号，例如不要写成 `sortorder: "1000"`。
 
-如果要调整某篇论文的先后顺序，优先修改对应 `_publications/*.md` 文件头部的 `date` 字段：
+当前排序规则：
+
+1. 先按 `sortorder` 降序，数值越大越靠前。
+2. 没有 `sortorder` 的论文排在所有有 `sortorder` 的论文后面。
+3. 如果多篇论文 `sortorder` 相同，则使用原 fallback 规则：CCF-A 优先，再按 publication category，最后按 `date` 倒序。
+
+修改位置：
 
 - 文件位置：`_publications/`
-- 大致行号：每个 publication 文件第 1-11 行附近
-- 搜索关键词：论文标题，或 `date:`
+- 大致行号：每个 publication 文件第 1-12 行附近
+- 搜索关键词：论文标题、`sortorder:`、`date:`
 - 示例文件：`_publications/2026-06-18-cipihunter.md`
-- 示例字段：`date: 2026-06-18`
+- 示例字段：`sortorder: 1000`
 
-具体场景：
+使用建议：
 
-- 把某篇 CCF-A 论文排到 CCF-A 区块最前：确认该文件有 `ccf: "A"`，然后把 `date` 改成比其他 CCF-A 论文更晚的日期。
-- 让 CCF-A 论文优先：在对应论文 front matter 中添加或保留 `ccf: "A"`。只有能确认是 CCF-A 的论文才这样写。
-- 在同一年内调整两篇论文先后：修改两篇论文的 `date`，例如把更想靠前的论文设为 `2026-06-18`，另一篇设为 `2026-01-02`。
-- 把非 CCF-A 论文从期刊区移动到会议区：修改 `category` 字段，例如 `category: conferences`。分类标题顺序来自 `_config.yml` 第 87-94 行附近的 `publication_category`。
+- 新增论文时建议填写 `sortorder`，并使用间隔较大的整数。
+- 如果当前最高 `sortorder` 是 `1000`，想让新论文排到最前，可以设置为 `1010` 或 `1100`。
+- 如果想插入在 `1000` 和 `990` 两篇论文之间，可以设置为 `995`。
+- 如果只是想调整顺序，优先改 `sortorder`，不要改论文标题、作者、venue、citation 或文件名。
+- 不要修改 `_site/` 中的生成 HTML；重新 build 后 `_site/` 会被覆盖。
 
-注意事项：
+修改后验证：
 
-- 不要修改 `_site/` 里的生成 HTML；重新 build 后 `_site/` 会被覆盖。
-- 不要为了排序修改论文标题、作者、venue 或 citation。
-- 修改 `date` 会影响列表排序和页面显示年份；当前项目的 permalink 是手写字段，通常不会因为 `date` 自动改变，但文件名和 `permalink` 仍建议保持一致。
-- 当前项目没有 `order` 字段。如果以后不想用日期控制顺序，可以考虑在 `_pages/publications.html` 中新增 `order` 排序逻辑，但这需要改模板，本说明不直接修改代码。
+```bash
+bundle exec jekyll clean
+bundle exec jekyll build
+```
+
+然后打开 `/publications/` 检查顺序。也可以在构建产物中确认 `sortorder` 没有显示在 Publications 页面：
+
+```bash
+grep -n "sortorder" _site/publications/index.html || true
+```
+
+注意：如果全站搜索 `_site`，可能会命中这份维护文档自身；判断网页是否泄露 `sortorder` 时，以 `_site/publications/index.html` 为准。
 
 ### 如何新增一篇 Publication
 
@@ -301,6 +317,7 @@ YYYY-MM-DD-short-title.md
 - `short-title` 使用英文小写、数字和连字符，不要使用空格。
 - 文件名中不要使用中文、斜杠或特殊符号。
 - `date` 会影响 Publications 列表排序。
+  如果使用 `sortorder`，主要顺序由 `sortorder` 控制，`date` 只作为 fallback 和显示年份使用。
 
 当前三行 Publications 列表的字段来源：
 
@@ -312,7 +329,7 @@ YYYY-MM-DD-short-title.md
 字段建议：
 
 - 必填：`title`、`collection: publications`、`category`、`permalink`、`date`、`venue`、`citation`。
-- 推荐填写：`venue_short`、`authors`。这两个字段可以让三行列表更稳定，不依赖模板自动截取。
+- 推荐填写：`sortorder`、`venue_short`、`authors`。`sortorder` 控制手动排序，`venue_short` 和 `authors` 可以让三行列表更稳定。
 - 可选：`ccf`、`status`、`excerpt`、`paperurl`、`slidesurl`、`bibtexurl`。
 - 当前模板没有使用 `year` 字段；年份来自 `date`。
 
@@ -324,6 +341,7 @@ title: "Paper Title"
 collection: publications
 category: conferences
 ccf: "A"
+sortorder: 1000
 permalink: /publication/YYYY-MM-DD-short-title
 excerpt: "One-sentence summary of this paper."
 date: YYYY-MM-DD
@@ -339,6 +357,7 @@ This publication is listed from a verified source.
 填写说明：
 
 - 如果不是 CCF-A 论文，不要写 `ccf: "A"`。
+- `sortorder` 建议用整数，数值越大越靠前。新增论文时可以选择当前相邻论文之间的空档值。
 - 如果无法确认 `venue_short`，可以先不写；但三行列表第一行可能只能使用模板从 `venue` 推断出的缩写。
 - 如果填写 `authors`，保持作者原始顺序。可以写 `Yanzhou Mu`，模板会自动加粗；也可以手动写 `<strong>Yanzhou Mu</strong>`，但不推荐混用。
 - 如果是 major revision，可以加：
@@ -362,6 +381,7 @@ status: "Major revision"
 - `date` 格式不是 `YYYY-MM-DD`。
 - YAML front matter 没有用开头和结尾的 `---` 包住。
 - 冒号后缺少空格，例如写成 `date:2026-06-18`。
+- `sortorder` 加了引号或写成非数字文本，导致排序结果不符合预期。
 - 标题或 citation 中有冒号、单引号等字符时没有加引号。
 - 忘记重新 build，导致页面仍是旧内容。
 - 只修改 `_site/` 生成文件，而没有修改 `_publications/*.md` 源文件。
@@ -838,7 +858,7 @@ npm run build:js
 - [ ] Publications 页面能显示全部论文。
 - [ ] `_publications/` 文件数没有被误删。
 - [ ] `Yanzhou Mu` / `沐燕舟` 在 publication citation 中仍然加粗。
-- [ ] CCF-A 论文仍在 `CCF-A Publications` 区块靠前显示。
+- [ ] Publications 页面顺序符合 `sortorder` 降序；相同 `sortorder` 内仍按 CCF-A、分类和 `date` fallback 排序。
 - [ ] News 只保留想展示的最新条目，并按 `YYYY.MM` 倒序排列。
 - [ ] Service 中 `Program Committee Member`、`Shadow PC`、`Co-reviewer` 身份写准确。
 - [ ] 顶部导航链接能打开。
@@ -859,7 +879,7 @@ npm run build:js
 | 删除 News | `_pages/about.md` | 第 17-24 行 | 删除对应列表项 | 当前没有自动截断 |
 | 新增论文 | `_publications/` | 参考任一 `_publications/*.md` | 新建 `YYYY-MM-DD-title.md` | front matter 必须完整 |
 | 修改论文作者 | `_publications/*.md` | 搜索论文标题或 `citation:` | 修改 `citation` 字段 | 保持作者顺序 |
-| 修改论文排序 | `_publications/*.md`、`_pages/publications.html` | publication 文件中的 `date`；publications 第 13-25 行 | 优先改 `date` | 大改排序逻辑前先备份 |
+| 修改论文排序 | `_publications/*.md`、`_pages/publications.html`、`_includes/publications-by-fallback-order.html` | 搜索 `sortorder:`；publications 第 13-20 行 | 优先改 `sortorder`，数值越大越靠前 | 不要为了排序改标题、作者、venue 或 `_site/` |
 | 修改 CCF-A 标记 | `_publications/*.md` | 搜索 `ccf:` | 添加或删除 `ccf: "A"` | 未确认的论文不要强行标 A |
 | 新增 Service | `_pages/about.md` | 第 50-72 行；搜索 `Service` | 在对应类别加列表项 | 不要混淆 PC、Shadow PC、Co-reviewer |
 | 新增 Current Student | `_pages/students.md` | 搜索 `Current Students` | 在标题下新增 `* **Name**, ...` 列表项 | 保持姓名加粗和日期格式统一 |

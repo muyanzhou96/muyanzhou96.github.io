@@ -3,6 +3,7 @@ title: "Deep Learning Framework Testing via Model Mutation: How far are we?"
 collection: publications
 category: manuscripts
 ccf: "A"
+sortorder: 940
 permalink: /publication/2025-01-02-model-mutation-tse
 excerpt: "Deep learning framework testing via model mutation."
 date: 2025-01-02

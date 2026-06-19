@@ -2,6 +2,7 @@
 title: "采用多目标优化的深度学习测试优化方法"
 collection: publications
 category: manuscripts
+sortorder: 890
 permalink: /publication/2022-01-01-deep-learning-test-optimization-cn
 excerpt: "A deep learning test optimization method using multi-objective optimization."
 date: 2022-01-01

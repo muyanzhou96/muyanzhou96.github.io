@@ -2,6 +2,7 @@
 title: "Deep learning test optimization method using multi-objective optimization"
 collection: publications
 category: manuscripts
+sortorder: 900
 permalink: /publication/2022-01-02-deep-learning-test-optimization-iji
 excerpt: "Deep learning test optimization using multi-objective optimization."
 date: 2022-01-02

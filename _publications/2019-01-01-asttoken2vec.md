@@ -2,6 +2,7 @@
 title: "Cross-project defect prediction via asttoken2vec and blstm-based neural network"
 collection: publications
 category: conferences
+sortorder: 850
 permalink: /publication/2019-01-01-asttoken2vec
 excerpt: "Cross-project defect prediction via asttoken2vec and a BLSTM-based neural network."
 date: 2019-01-01

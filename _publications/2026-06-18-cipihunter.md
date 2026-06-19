@@ -3,6 +3,7 @@ title: "CIPIHunter: Detecting Configuration-Induced Prediction Instability in De
 collection: publications
 category: conferences
 ccf: "A"
+sortorder: 1000
 permalink: /publication/2026-06-18-cipihunter
 excerpt: "Detecting Configuration-Induced Prediction Instability in Deep Learning Frameworks."
 date: 2026-06-18
