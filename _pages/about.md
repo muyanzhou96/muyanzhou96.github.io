@@ -12,7 +12,7 @@ I am an InnoCORE Postdoctoral Researcher in Computer Science and Engineering at 
 
 Before that, I received my master's degree from the College of Intelligence and Computing at Tianjin University, where I was supervised by Prof. Zan Wang, [Prof. Shuang Liu](https://scholar.google.com/citations?hl=en&user=-cw2GtwAAAAJ), and [Prof. Junjie Chen](https://sites.google.com/site/junjiechen08/). I received my bachelor's degree from Nantong University under the supervision of [Prof. Xiang Chen](https://xchencs.github.io/index.html).
 
-I welcome inquiries from self-motivated undergraduate and graduate students who share similar research interests and are interested in research collaboration. Please feel free to contact me via email.
+I welcome inquiries from self-motivated undergraduate and graduate students who share similar research interests and are interested in research collaboration. Please feel free to contact me (602022320006@smail.nju.edu.cn) via email.
 
 News
 ======
@@ -58,7 +58,4 @@ Service
 
 * Co-reviewer, Journal of Software
 
-Contact
-======
 
-Email: [602022320006@smail.nju.edu.cn](mailto:602022320006@smail.nju.edu.cn)
