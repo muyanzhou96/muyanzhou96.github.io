@@ -90,6 +90,17 @@
   white-space: nowrap;
 }
 
+.publication-group {
+  margin-top: 1.75em;
+}
+
+.publication-group__title {
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
+  padding-bottom: 0.35em;
+  border-bottom: 1px solid var(--global-border-color);
+}
+
 .project-images {
   display: flex;
   flex-wrap: wrap;

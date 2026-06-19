@@ -1,0 +1,43 @@
+{%- assign publications_by_date = site.publications | sort: "date" | reverse -%}
+
+{%- if include.group == "preprints" -%}
+  {%- for post in publications_by_date -%}
+    {%- assign post_sortorder = post.sortorder | default: 0 | plus: 0 -%}
+    {%- if post_sortorder != -1 -%}
+      {%- continue -%}
+    {%- endif -%}
+    {% include archive-single.html %}
+  {%- endfor -%}
+{%- else -%}
+  {%- assign max_sortorder = include.max_sortorder | default: 0 | plus: 0 -%}
+  {%- assign target_group_year = include.target_year | default: "" | append: "" -%}
+  {%- for sortorder_value in (0..max_sortorder) reversed -%}
+    {%- for post in publications_by_date -%}
+      {%- assign post_sortorder = post.sortorder | default: 0 | plus: 0 -%}
+      {%- if post_sortorder == -1 -%}
+        {%- continue -%}
+      {%- endif -%}
+      {%- if post_sortorder != sortorder_value -%}
+        {%- continue -%}
+      {%- endif -%}
+
+      {%- assign post_group_year = post.year | default: post.pub_year | default: post.publication_year | default: "" -%}
+      {%- if post_group_year == "" and post.date -%}
+        {%- assign post_group_year = post.date | date: "%Y" -%}
+      {%- endif -%}
+      {%- assign post_group_year = post_group_year | append: "" -%}
+
+      {%- if include.unknown_year -%}
+        {%- if post_group_year != "" -%}
+          {%- continue -%}
+        {%- endif -%}
+      {%- else -%}
+        {%- if post_group_year != target_group_year -%}
+          {%- continue -%}
+        {%- endif -%}
+      {%- endif -%}
+
+      {% include archive-single.html %}
+    {%- endfor -%}
+  {%- endfor -%}
+{%- endif -%}
