@@ -521,36 +521,163 @@ author_profile: true
 - 页面必须有 front matter，也就是文件开头的 `---` 区块。
 - `permalink` 要和导航里的 `url` 对上。
 
-#### Students 页面如何修改
+### 如何维护 Students 页面
 
-- 页面文件：`_pages/students.md`
-- 导航入口：`_data/navigation.yml` 第 10-21 行附近，搜索 `Students` 或 `url: /students/`
-- 页面 URL：`/students/`
-- 搜索关键词：`Current Students`、`Alumni`
+#### Students 页面在哪里
 
-新增 current student：
+- Students 页面文件：`_pages/students.md`
+- 导航栏配置文件：`_data/navigation.yml`
+- 页面 URL / permalink：`/students/`
+- 页面 front matter：`_pages/students.md` 第 1-6 行附近
+- 页面标题：修改 `_pages/students.md` 第 3 行附近的 `title: "Students"`
+- 导航栏文字：修改 `_data/navigation.yml` 第 14 行附近的 `title: "Students"`
+- 导航栏 URL：修改 `_data/navigation.yml` 第 15 行附近的 `url: /students/`
+- 搜索关键词：`Current Students`、`Alumni`、`url: /students/`
+
+当前 Students 页面有两个分类：
+
+- `## Current Students`：`_pages/students.md` 第 8 行附近
+- `## Alumni`：`_pages/students.md` 第 20 行附近
+
+#### 如何新增 Current Student
+
+在 `_pages/students.md` 的 `## Current Students` 标题下面新增一条 Markdown 列表项。建议放在当前学生列表中合适的位置，例如按入组时间、学生类型或你想展示的顺序手动排列。
+
+推荐格式：
 
 ```markdown
-* **Student Name**, Ph.D. student, co-supervised with Prof. Name, Sep. 2026-present.
+* **学生姓名**, Ph.D. student, co-supervised with Prof. XXX, Sep. 2026–present.
 ```
 
-新增 alumni：
+如果没有共同指导老师：
 
 ```markdown
-* **Student Name**, M.S., graduated in 2026. Currently at Organization Name.
+* **学生姓名**, undergraduate intern, May 2026–present.
 ```
 
-修改学生去向：
+如果学生还没有正式开始、但已经确定入组：
 
-- 在 `_pages/students.md` 的 `Alumni` 小节中找到学生姓名。
-- 修改 `Currently ...` 后面的去向文字。
-- 如果 current student 毕业了，把对应条目从 `Current Students` 移到 `Alumni`，并补充 `graduated in YYYY` 和当前去向。
+```markdown
+* **学生姓名**, M.S. student, co-supervised with Prof. XXX, starting Sep. 2026.
+```
 
-注意事项：
+常用身份写法：
 
-- 保持学生姓名加粗：`**Name**`。
-- 当前页面是手写 Markdown 列表，没有独立 `_data/students.yml`。
-- 修改后运行 `bundle exec jekyll build`，本地预览用 `bundle exec jekyll serve -l -H localhost`，然后打开 `http://localhost:4000/students/`。
+- `Ph.D. student`
+- `M.S. student`
+- `undergraduate intern`
+
+时间格式建议：
+
+- 已开始：`Sep. 2022–present`
+- 未来开始：`starting Sep. 2026`
+- 月份缩写保持一致，例如 `Jan.`、`May`、`Jul.`、`Aug.`、`Sep.`、`Oct.`
+
+#### 如何把 Current Student 移到 Alumni
+
+1. 在 `_pages/students.md` 的 `## Current Students` 下找到该学生条目。
+2. 剪切或删除这条 current student 记录。
+3. 粘贴到 `## Alumni` 标题下面。
+4. 将学生身份改成毕业身份，例如 `M.S.` 或 `undergraduate intern`。
+5. 将时间范围改成毕业年份，例如 `graduated in 2026`。
+6. 如果知道毕业去向，追加 `Currently ...`；不知道去向时不要编造。
+
+有去向的写法：
+
+```markdown
+* **学生姓名**, M.S., co-supervised with Prof. XXX, graduated in 2026. Currently at XXX.
+```
+
+没有去向的写法：
+
+```markdown
+* **学生姓名**, M.S., co-supervised with Prof. XXX, graduated in 2026.
+```
+
+如果去向是继续读博，可以写：
+
+```markdown
+* **学生姓名**, M.S., graduated in 2026. Currently a Ph.D. student at XXX University.
+```
+
+#### 如何新增新的学生分类
+
+如果以后想新增 `Visiting Students`、`Undergraduate Interns`、`Collaborating Students`、`Former Interns` 等页面内部栏目，只需要在 `_pages/students.md` 中增加一个二级 Markdown 标题和对应列表。
+
+示例：
+
+```markdown
+## Visiting Students
+
+* **学生姓名**, visiting student, Jan. 2027–Jun. 2027.
+```
+
+注意：
+
+- 新增页面内部栏目不需要修改导航栏。
+- 只有新增独立页面时，才需要修改 `_data/navigation.yml`。
+- 新栏目建议继续使用 `##`，保持和 `Current Students`、`Alumni` 同级。
+
+#### 如何修改已有学生信息
+
+在 `_pages/students.md` 中搜索学生姓名，然后直接修改对应列表项：
+
+- 姓名：修改 `**姓名**` 中的文字。
+- 学位类型：修改 `Ph.D. student`、`M.S. student`、`undergraduate intern` 等身份字段。
+- 共同指导老师：修改 `co-supervised with Prof. XXX`。
+- 起止时间：修改 `Sep. 2022–present`、`starting Sep. 2026` 或 `graduated in 2026`。
+- 当前去向：修改 `Currently ...` 后面的文字。
+- 拼写错误：直接修正对应单词，例如 `Octorber` 应改为 `Oct.`。
+
+不要修改 `_site/` 下的构建产物，也不要只改浏览器里看到的 HTML。应该修改源文件 `_pages/students.md`，然后重新构建。
+
+#### 推荐格式规范
+
+- 姓名加粗：`**Student Name**`
+- 博士生：`Ph.D. student`
+- 硕士生：`M.S. student`
+- 本科实习生：`undergraduate intern`
+- 时间范围：`Sep. 2022–present`
+- 未来入组：`starting Sep. 2026`
+- 毕业年份：`graduated in 2026`
+- 去向：`Currently at ...` 或 `Currently a Ph.D. student at ...`
+- 共同指导：`co-supervised with Prof. XXX`
+- 不要混用 `~`、`From`、`Present`、`present` 等不统一格式。
+
+#### 修改后如何验证
+
+本项目是 Jekyll / academicpages 风格站点。修改 Students 页面后建议运行：
+
+```bash
+bundle exec jekyll clean
+bundle exec jekyll build
+bundle exec jekyll serve
+```
+
+本地预览 URL：
+
+```text
+http://localhost:4000/students/
+```
+
+检查内容：
+
+- 顶部导航栏是否仍显示 `Students`。
+- `Students` 导航是否打开 `/students/`。
+- `Current Students` 和 `Alumni` 是否正常渲染成标题。
+- 每条学生信息是否是 Markdown 列表。
+- 学生姓名是否加粗。
+- 没有把学生信息误写到 Service、Publications 或 `_site/`。
+
+#### 常见错误
+
+- 改了 `_site/` 里的生成文件，下次 build 后被覆盖。
+- 忘记在学生姓名两边加 `**`。
+- 把 `co-reviewer`、`PC Member` 等 Service 内容误放到 Students。
+- 日期格式不统一，例如混用 `Present` 和 `present`。
+- 月份拼写错误，例如 `Octorber` 应写为 `Oct.`。
+- 新增独立 Students 子页面后忘记更新 `_data/navigation.yml`。
+- Markdown 列表缩进错误，导致列表渲染异常。
 
 ## 8. 图片、头像、PDF 简历等资源如何替换
 
@@ -735,6 +862,11 @@ npm run build:js
 | 修改论文排序 | `_publications/*.md`、`_pages/publications.html` | publication 文件中的 `date`；publications 第 13-25 行 | 优先改 `date` | 大改排序逻辑前先备份 |
 | 修改 CCF-A 标记 | `_publications/*.md` | 搜索 `ccf:` | 添加或删除 `ccf: "A"` | 未确认的论文不要强行标 A |
 | 新增 Service | `_pages/about.md` | 第 50-72 行；搜索 `Service` | 在对应类别加列表项 | 不要混淆 PC、Shadow PC、Co-reviewer |
+| 新增 Current Student | `_pages/students.md` | 搜索 `Current Students` | 在标题下新增 `* **Name**, ...` 列表项 | 保持姓名加粗和日期格式统一 |
+| 将学生移动到 Alumni | `_pages/students.md` | 搜索学生姓名和 `Alumni` | 从 Current Students 移到 Alumni，并改成 `graduated in YYYY` | 不知道去向时不要编造 |
+| 新增 Students 子栏目 | `_pages/students.md` | 搜索 `Current Students` 或 `Alumni` | 新增 `## Visiting Students` 等二级标题和列表 | 页面内部栏目通常不用改导航 |
+| 修改学生毕业去向 | `_pages/students.md` | 搜索学生姓名或 `Currently` | 修改 `Currently ...` 后面的文字 | 不要改 `_site/` 生成文件 |
+| 修改 Students 导航栏文字 | `_data/navigation.yml` | 第 14-15 行；搜索 `Students` 或 `/students/` | 修改对应 `title`，必要时同步页面 `title` | `url` 必须和页面 permalink 对上 |
 | 修改简历 PDF | `files/`、`_config.yml`、`_pages/cv-json.md` | config 第 21 行；cv-json 第 15-23 行 | PDF 放 `files/`，设置 `cv_pdf` | `resume/` 不公开 |
 | 修改导航栏 | `_data/navigation.yml` | 第 10-18 行；搜索 `main:` | 添加/删除/移动条目 | 新页面需有 front matter 和 permalink |
 | 修改网站标题 | `_config.yml`、页面 front matter | config 第 12 行；about 第 3 行 | 修改 `title` | 影响 SEO 和浏览器标题 |
