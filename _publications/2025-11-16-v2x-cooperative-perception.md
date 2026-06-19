@@ -3,7 +3,7 @@ title: "When Autonomous Vehicle Meets V2X Cooperative Perception: How Far Are We
 collection: publications
 category: conferences
 ccf: "A"
-sortorder: 970
+sortorder: 400
 permalink: /publication/2025-11-16-v2x-cooperative-perception
 excerpt: "A study of autonomous vehicles and V2X cooperative perception."
 date: 2025-11-16

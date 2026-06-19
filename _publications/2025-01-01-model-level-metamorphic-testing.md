@@ -3,7 +3,7 @@ title: "Improving Deep Learning Framework Testing with Model-Level Metamorphic T
 collection: publications
 category: conferences
 ccf: "A"
-sortorder: 930
+sortorder: 1200
 permalink: /publication/2025-01-01-model-level-metamorphic-testing
 excerpt: "Improving deep learning framework testing with model-level metamorphic testing."
 date: 2025-01-01
