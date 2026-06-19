@@ -95,6 +95,13 @@ Awards and Honors
 ======
 
 * Huawei 2023 Innovation Testing Application Award: project results from MindSpore Model Generalization Testing Technology supported the collaboration team in winning this award.
+* Outstanding Graduate of Tianjin University — 2022.06
+* Outstanding Communist Youth League Member of Tianjin University — 2021.01
+* Outstanding Undergraduate Graduation Project/Thesis of Nantong University, Class of 2019 — 2019.06
+* Outstanding Student Cadre of Jiangsu Province — 2018.05
+* National Scholarship for Undergraduate Students — 2017.11
+* Merit Student of Nantong City — 2017.05
+* Model Merit Student of Nantong University — 2016.09
 
 Publications
 ======
