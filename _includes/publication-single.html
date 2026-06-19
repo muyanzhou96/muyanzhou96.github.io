@@ -1,9 +1,15 @@
 {% include base_path %}
 
 {% assign publication_title = post.title | markdownify | remove: "<p>" | remove: "</p>" %}
-{% assign publication_year = post.date | default: "1900-01-01" | date: "%Y" %}
-{% assign publication_year_short = post.date | default: "1900-01-01" | date: "%y" %}
+{% assign publication_year = post.year | default: post.pub_year | default: post.publication_year | default: "" %}
+{% if publication_year == "" %}
+  {% assign publication_year = post.date | default: "1900-01-01" | date: "%Y" %}
+{% endif %}
+{% assign publication_year_short = publication_year | append: "" | slice: -2, 2 %}
 {% assign publication_venue = post.venue | default: "" | strip %}
+{% assign publication_badge = post.badge | default: "" | strip %}
+{% assign publication_pdf = post.pdf | default: post.pdfurl | default: post.paperurl %}
+{% assign publication_workshop = post.workshop | default: post.workshopurl | default: post.workshop_url %}
 
 {% assign venue_short = post.venue_short | default: "" | strip %}
 {% if venue_short == "" and publication_venue != "" %}
@@ -72,6 +78,7 @@
     {% endif %}
     {% if publication_meta != "" %}（{{ publication_meta }}）{% endif %}
   </strong>
+  {% if publication_badge != "" %}<span class="publication__item-badge">{{ publication_badge }}</span>{% endif %}
 </h2>
 
 {% if authors_line != "" %}
@@ -81,5 +88,16 @@
 {% endif %}
 
 {% if publication_venue != "" %}
-  <p class="publication__item-venue"><em>{{ publication_venue }}, {{ publication_year }}{% if post.status %}, {{ post.status }}{% endif %}</em></p>
+  <p class="publication__item-venue">
+    <em>{{ publication_venue }}, {{ publication_year }}{% if post.status %}, {{ post.status }}{% endif %}</em>
+    {% if post.arxiv or publication_pdf or post.doi or publication_workshop %}
+      <span class="publication__item-links">
+        {% assign link_separator = "" %}
+        {% if post.arxiv %}{{ link_separator }}<a href="{{ post.arxiv }}" target="_blank" rel="noopener noreferrer">arXiv</a>{% assign link_separator = " | " %}{% endif %}
+        {% if publication_pdf %}{{ link_separator }}<a href="{{ publication_pdf }}" target="_blank" rel="noopener noreferrer">PDF</a>{% assign link_separator = " | " %}{% endif %}
+        {% if post.doi %}{{ link_separator }}<a href="{{ post.doi }}" target="_blank" rel="noopener noreferrer">DOI</a>{% assign link_separator = " | " %}{% endif %}
+        {% if publication_workshop %}{{ link_separator }}<a href="{{ publication_workshop }}" target="_blank" rel="noopener noreferrer">Workshop</a>{% endif %}
+      </span>
+    {% endif %}
+  </p>
 {% endif %}

@@ -19,6 +19,9 @@
   {% endif %}
   {% assign citation = citation | replace: "Yanzhou Mu", "<strong>Yanzhou Mu</strong>" | replace: "沐燕舟", "<strong>沐燕舟</strong>" %}
 {% endif %}
+{% assign publication_badge = post.badge | default: "" | strip %}
+{% assign publication_pdf = post.pdf | default: post.pdfurl | default: post.paperurl %}
+{% assign publication_workshop = post.workshop | default: post.workshopurl | default: post.workshop_url %}
 
 <div class="{{ include.type | default: "list" }}__item">
   <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
@@ -44,7 +47,20 @@
     {% if post.read_time %}
       <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> {% include read-time.html %}</p>
     {% endif %}
-    {% if post.venue%}<p class="archive__item-excerpt" itemprop="description">{{ citation }}{% if post.co_first_author %} <span class="publication__item-badge">Co-first author</span>{% endif %}</p> {% endif %}
+    {% if post.venue%}
+      <p class="archive__item-excerpt" itemprop="description">
+        {{ citation }}{% if post.co_first_author %} <span class="publication__item-badge">Co-first author</span>{% endif %}{% if publication_badge != "" %} <span class="publication__item-badge">{{ publication_badge }}</span>{% endif %}
+        {% if post.arxiv or publication_pdf or post.doi or publication_workshop %}
+          <span class="publication__item-links">
+            {% assign link_separator = "" %}
+            {% if post.arxiv %}{{ link_separator }}<a href="{{ post.arxiv }}" target="_blank" rel="noopener noreferrer">arXiv</a>{% assign link_separator = " | " %}{% endif %}
+            {% if publication_pdf %}{{ link_separator }}<a href="{{ publication_pdf }}" target="_blank" rel="noopener noreferrer">PDF</a>{% assign link_separator = " | " %}{% endif %}
+            {% if post.doi %}{{ link_separator }}<a href="{{ post.doi }}" target="_blank" rel="noopener noreferrer">DOI</a>{% assign link_separator = " | " %}{% endif %}
+            {% if publication_workshop %}{{ link_separator }}<a href="{{ publication_workshop }}" target="_blank" rel="noopener noreferrer">Workshop</a>{% endif %}
+          </span>
+        {% endif %}
+      </p>
+    {% endif %}
     </li>
  </article>
 </div>
