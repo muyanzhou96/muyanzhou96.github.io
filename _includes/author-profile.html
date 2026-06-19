@@ -62,6 +62,12 @@
       {% if author.orcid %}
         <li><a href="{{ author.orcid }}" target="_blank" rel="noopener noreferrer"><i class="ai ai-orcid ai-fw icon-pad-right"></i>ORCID</a></li>
       {% endif %}
+      {% if author.dblp %}
+        <li><a href="{{ author.dblp }}" target="_blank" rel="noopener noreferrer"><i class="ai ai-dblp ai-fw icon-pad-right"></i>DBLP</a></li>
+      {% endif %}
+      {% if author.x_twitter %}
+        <li><a href="{{ author.x_twitter }}" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-x-twitter icon-pad-right" aria-hidden="true"></i>X / Twitter</a></li>
+      {% endif %}
       {% if author.pubmed %}
         <li><a href="{{ author.pubmed }}"><i class="ai ai-pubmed ai-fw icon-pad-right"></i>PubMed</a></li>
       {% endif %}                        

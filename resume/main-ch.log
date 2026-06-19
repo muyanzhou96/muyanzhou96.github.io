@@ -1,9 +1,9 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.18)  19 JUN 2026 19:09
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.6.18)  19 JUN 2026 19:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**main-en.tex
-(./main-en.tex
+**main-ch.tex
+(./main-ch.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
 (/usr/local/texlive/2025/texmf-dist/tex/latex/base/article.cls
@@ -1207,8 +1207,8 @@ put line 709.
 Package nfssext-cfr Warning: Patching font initialisation macro for typewriter.
  on input line 718.
 
-) (./main-en.aux)
-\openout1 = `main-en.aux'.
+) (./main-ch.aux)
+\openout1 = `main-ch.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/lmm/m/it on input line 144.
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
@@ -1347,9 +1347,9 @@ LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 Package hyperref Info: Link coloring OFF on input line 144.
-(./main-en.out) (./main-en.out)
+(./main-ch.out) (./main-ch.out)
 \@outlinefile=\write4
-\openout4 = `main-en.out'.
+\openout4 = `main-ch.out'.
 
 \c@lstlisting=\count385
 LaTeX Info: Redefining \swshape on input line 144.
@@ -1377,6 +1377,15 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 LaTeX Font Warning: Font shape `T1/cmr/b/sc' undefined
 (Font)              using `T1/cmr/bx/sc' instead on input line 175.
 
+
+LaTeX Font Warning: Font shape `TU/FandolSong-Regular(0)/bx/sc' undefined
+(Font)              using `TU/FandolSong-Regular(0)/bx/n' instead on input line
+ 175.
+
+LaTeX Font Info:    Font shape `TU/FandolSong-Regular(0)/bx/n' in size <12> not
+ available
+(Font)              Font shape `TU/FandolSong-Regular(0)/b/n' tried instead on 
+input line 175.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 176.
 
@@ -1384,6 +1393,15 @@ LaTeX Font Warning: Font shape `T1/cmr/b/it' undefined
 (Font)              using `T1/cmr/bx/it' instead on input line 180.
 
 
+LaTeX Font Warning: Font shape `TU/FandolSong-Regular(0)/bx/it' undefined
+(Font)              using `TU/FandolSong-Regular(0)/bx/n' instead on input line
+ 180.
+
+LaTeX Font Info:    Font shape `TU/FandolSong-Regular(0)/bx/n' in size <9> not 
+available
+(Font)              Font shape `TU/FandolSong-Regular(0)/b/n' tried instead on 
+input line 180.
+
 LaTeX Font Warning: Font shape `T1/cmr/b/it' undefined
 (Font)              using `T1/cmr/bx/it' instead on input line 185.
 
@@ -1398,11 +1416,6 @@ LaTeX Font Warning: Font shape `T1/cmr/b/it' undefined
 
 LaTeX Font Warning: Font shape `T1/cmr/b/it' undefined
 (Font)              using `T1/cmr/bx/it' instead on input line 190.
-
-
-Overfull \hbox (23.84337pt too wide) in alignment at lines 190--190
-[] [] 
- []
 
 
 LaTeX Font Warning: Font shape `T1/cmr/b/it' undefined
@@ -1421,33 +1434,42 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <7> on input line 208.
 
+Overfull \hbox (68.93391pt too wide) in paragraph at lines 224--225
+\T1/cmr/m/n/10 miza-tion method us-ing multi-objective op-ti-miza-tion. \TU/Fan
+dolSong-Regular(0)/m/n/10 中 文 版 本：|  软 件 学 报\T1/cmr/m/n/10 , 2022, 33(07):2499-
+2524, DOI:10.13328/j.cnki.jos.006583.
+ []
+
+
 
 [1
 
 ]
 
-[2]
-Overfull \hbox (50.26479pt too wide) in alignment at lines 292--292
-[] [] 
- []
+LaTeX Font Warning: Font shape `TU/FandolSong-Regular(0)/m/sc' undefined
+(Font)              using `TU/FandolSong-Regular(0)/m/n' instead on input line 
+269.
 
+
+
+[2]
 
 LaTeX Font Warning: Font shape `T1/cmr/b/sc' undefined
-(Font)              using `T1/cmr/bx/sc' instead on input line 389.
+(Font)              using `T1/cmr/bx/sc' instead on input line 387.
 
 
-Overfull \hbox (24.56288pt too wide) in paragraph at lines 399--400
+Overfull \hbox (24.56288pt too wide) in paragraph at lines 397--398
 \T1/cmr/m/n/10 de-vice, and com-puter equip-ment based on neu-ron char-ac-ter-i
 s-tics of in-tel-li-gent traf-fic mod-els. Patent No: CN118689772A. 
  []
 
 
 LaTeX Font Warning: Font shape `T1/cmr/b/sc' undefined
-(Font)              using `T1/cmr/bx/sc' instead on input line 414.
+(Font)              using `T1/cmr/bx/sc' instead on input line 412.
 
 
 
-[3] (./main-en.aux)
+[3] (./main-ch.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2022/08/05>
@@ -1456,16 +1478,16 @@ L3 programming layer <2022/08/05>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package rerunfilecheck Info: File `main-en.out' has not changed.
-(rerunfilecheck)             Checksum: B51515980F58D364C5CCCEAFB2E16E26;1328.
+Package rerunfilecheck Info: File `main-ch.out' has not changed.
+(rerunfilecheck)             Checksum: 2D7766EB8C0D79CD72A16BCB9D20118E;795.
  ) 
 Here is how much of TeX's memory you used:
- 36049 strings out of 473832
- 779331 string characters out of 5729481
- 1331150 words of memory out of 5000000
- 58492 multiletter control sequences out of 15000+600000
- 596458 words of font info for 98 fonts, out of 8000000 for 9000
+ 36257 strings out of 473832
+ 793223 string characters out of 5729481
+ 1336591 words of memory out of 5000000
+ 58691 multiletter control sequences out of 15000+600000
+ 596530 words of font info for 107 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 102i,11n,112p,1246b,690s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 102i,11n,112p,1246b,600s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main-en.pdf (3 pages).
+Output written on main-ch.pdf (3 pages).
