@@ -90,6 +90,20 @@
   white-space: nowrap;
 }
 
+.project-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+  align-items: center;
+}
+
+.project-images img {
+  max-width: 220px;
+  height: auto;
+  border-radius: 6px;
+}
+
 .archive__item-teaser {
   border-radius: $border-radius;
   overflow: hidden;

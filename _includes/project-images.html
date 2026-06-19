@@ -1,0 +1,13 @@
+{% if include.images %}
+  <div class="project-images">
+    {% for image in include.images %}
+      {% assign image_path = image.path | default: image %}
+      {% assign image_alt = image.alt | default: "" %}
+      {% if image_path contains "://" %}
+        <img src="{{ image_path }}" alt="{{ image_alt }}" loading="lazy" />
+      {% else %}
+        <img src="{{ image_path | prepend: base_path }}" alt="{{ image_alt }}" loading="lazy" />
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endif %}
