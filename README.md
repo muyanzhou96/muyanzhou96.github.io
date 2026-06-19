@@ -29,6 +29,20 @@ npm install
 npm run build:js
 ```
 
+## Website Analytics
+
+This site supports privacy-friendly page view analytics via GoatCounter.
+
+To enable analytics:
+
+1. Create a GoatCounter site.
+2. Replace `YOUR_GOATCOUNTER_CODE` in `_includes/analytics-providers/custom.html` with your own GoatCounter site code.
+3. Use your deployed domain in the GoatCounter dashboard. For GitHub Pages, this can be `muyanzhou96.github.io`; if you later use a custom domain, use that custom domain instead.
+4. Deploy the site to GitHub Pages.
+5. View traffic statistics in the GoatCounter dashboard.
+
+The analytics script is loaded asynchronously through the site's shared Jekyll analytics include, and the visit count is not displayed publicly on the website.
+
 ## Docker
 
 The project can also run through Docker:

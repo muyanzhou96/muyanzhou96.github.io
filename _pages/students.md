@@ -17,6 +17,7 @@ author_profile: true
 * **Yuhang Cao**, undergraduate student, co-supervised with Prof. Chunrong Fang, Oct. 2025–present.
 * **Danyang Dong**, undergraduate student, May 2025–present.
 * **Lin Chen**, undergraduate student, May 2026–present.
+* **Yuanlong Xiong**, undergraduate student, co-supervised with Dr. Peiran Yang, May 2026–present.
 
 ## Alumni
 
