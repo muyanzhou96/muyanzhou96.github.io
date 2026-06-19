@@ -196,7 +196,8 @@ cv_pdf: /files/Yanzhou_Mu_CV.pdf
 
 - 发表列表数据：`_publications/*.md`
 - 发表列表页面：`_pages/publications.html`
-- 单篇渲染模板：`_includes/archive-single.html`
+- 单篇列表入口模板：`_includes/archive-single.html`
+- Publications 三行列表模板：`_includes/publication-single.html`
 - CV 中的 publication 渲染模板：`_includes/archive-single-cv.html`
 - 分类标题配置：`_config.yml` 第 87-94 行附近，字段 `publication_category`
 
@@ -216,12 +217,15 @@ cv_pdf: /files/Yanzhou_Mu_CV.pdf
 - `date`：排序日期和显示年份，第 8-9 行附近。
 - `venue`：期刊或会议名称，第 9-10 行附近。
 - `citation`：作者列表和完整引用，第 10-11 行附近。
+- `authors`：可选字段。如果填写，Publications 三行列表的第二行优先使用它；如果不填，模板会尝试从 `citation` 中截取作者列表。
+- `venue_short`：可选字段。如果填写，Publications 三行列表第一行优先使用它；如果不填，模板会尝试从 `venue` 中提取缩写。
 
 #### 我的名字加粗在哪里实现
 
-- 主 publication 页面：`_includes/archive-single.html`
-- 大致行号：第 15-18 行附近。
+- 主 publication 页面：`_includes/publication-single.html`
+- 大致行号：第 55-64 行附近。
 - 代码逻辑：渲染时把 `Yanzhou Mu` 和 `沐燕舟` 替换成 `<strong>...</strong>`。
+- `_includes/archive-single.html` 第 20-24 行附近会判断 `post.collection == 'publications'`，然后调用 `_includes/publication-single.html`。
 - CV publication 页面：`_includes/archive-single-cv.html`
 - 大致行号：第 15-18 行附近。
 - 注意事项：
@@ -231,22 +235,88 @@ cv_pdf: /files/Yanzhou_Mu_CV.pdf
 #### CCF-A 排序或标记在哪里实现
 
 - 标记字段：每篇 `_publications/*.md` 的 front matter 中添加 `ccf: "A"`。
-- 显示 CCF 标记：`_includes/archive-single.html` 第 48-49 行附近。
+- 显示 CCF 标记：`_includes/publication-single.html` 第 33-53 行附近。
 - 排序和优先展示：`_pages/publications.html` 第 13-25 行附近。
 - 当前逻辑：
   - 先 `sort: "date" | reverse`
   - 先显示 `ccf: "A"` 的论文，并加标题 `CCF-A Publications`
   - 非 CCF-A 论文再按 `_config.yml` 中的分类显示
 
-#### 新增论文模板
+### 如何手动调整 Publications 显示顺序
 
-新增论文时，在 `_publications/` 下新建一个 `.md` 文件。文件名建议：
+当前 Publications 列表不是由文件名直接排序，也不是由 `_site/` 中的 HTML 决定。真实逻辑在 `_pages/publications.html`：
+
+- 大致行号：第 13 行附近
+- 搜索关键词：`site.publications | sort: "date" | reverse`
+- 当前代码：`{% assign publications = site.publications | sort: "date" | reverse %}`
+
+当前显示顺序分两层：
+
+- 第一层：`ccf: "A"` 的论文先显示在 `CCF-A Publications` 区块。
+- 第二层：非 CCF-A 论文再按 `_config.yml` 中 `publication_category` 的分类顺序显示。
+- 每个区块内部：按每篇论文 front matter 中的 `date` 倒序排列。
+
+如果要调整某篇论文的先后顺序，优先修改对应 `_publications/*.md` 文件头部的 `date` 字段：
+
+- 文件位置：`_publications/`
+- 大致行号：每个 publication 文件第 1-11 行附近
+- 搜索关键词：论文标题，或 `date:`
+- 示例文件：`_publications/2026-06-18-cipihunter.md`
+- 示例字段：`date: 2026-06-18`
+
+具体场景：
+
+- 把某篇 CCF-A 论文排到 CCF-A 区块最前：确认该文件有 `ccf: "A"`，然后把 `date` 改成比其他 CCF-A 论文更晚的日期。
+- 让 CCF-A 论文优先：在对应论文 front matter 中添加或保留 `ccf: "A"`。只有能确认是 CCF-A 的论文才这样写。
+- 在同一年内调整两篇论文先后：修改两篇论文的 `date`，例如把更想靠前的论文设为 `2026-06-18`，另一篇设为 `2026-01-02`。
+- 把非 CCF-A 论文从期刊区移动到会议区：修改 `category` 字段，例如 `category: conferences`。分类标题顺序来自 `_config.yml` 第 87-94 行附近的 `publication_category`。
+
+注意事项：
+
+- 不要修改 `_site/` 里的生成 HTML；重新 build 后 `_site/` 会被覆盖。
+- 不要为了排序修改论文标题、作者、venue 或 citation。
+- 修改 `date` 会影响列表排序和页面显示年份；当前项目的 permalink 是手写字段，通常不会因为 `date` 自动改变，但文件名和 `permalink` 仍建议保持一致。
+- 当前项目没有 `order` 字段。如果以后不想用日期控制顺序，可以考虑在 `_pages/publications.html` 中新增 `order` 排序逻辑，但这需要改模板，本说明不直接修改代码。
+
+### 如何新增一篇 Publication
+
+新增文献应该放在 `_publications/` 目录下。当前正式发表列表来自 `_publications/*.md`，不是 BibTeX、YAML 或 JSON。
+
+建议复制一个已有 publication 文件作为模板：
+
+- CCF-A 会议论文可参考：`_publications/2026-06-18-cipihunter.md`
+- CCF-A 期刊论文可参考：`_publications/2026-01-01-llm-centric-challenges.md`
+- 普通会议论文可参考：`_publications/2019-01-01-asttoken2vec.md`
+- 普通期刊论文可参考：`_publications/2021-01-02-heterogeneous-defect-prediction.md`
+
+新文件命名建议：
 
 ```text
 YYYY-MM-DD-short-title.md
 ```
 
-可以参考如下格式：
+命名规则：
+
+- `YYYY-MM-DD` 建议和 front matter 中的 `date` 一致。
+- `short-title` 使用英文小写、数字和连字符，不要使用空格。
+- 文件名中不要使用中文、斜杠或特殊符号。
+- `date` 会影响 Publications 列表排序。
+
+当前三行 Publications 列表的字段来源：
+
+- 第一行标题：`title`。
+- 第一行括号：优先使用 `venue_short`；如果没有，`_includes/publication-single.html` 第 8-31 行附近会尝试从 `venue` 自动提取缩写。CCF 信息来自 `ccf`。
+- 第二行作者列表：优先使用 `authors`；如果没有，`_includes/publication-single.html` 第 55-64 行附近会尝试从 `citation` 中截取作者列表，并自动加粗 `Yanzhou Mu` 或 `沐燕舟`。
+- 第三行完整 venue：使用 `venue` 和 `date` 年份；如果有 `status`，也会追加显示。
+
+字段建议：
+
+- 必填：`title`、`collection: publications`、`category`、`permalink`、`date`、`venue`、`citation`。
+- 推荐填写：`venue_short`、`authors`。这两个字段可以让三行列表更稳定，不依赖模板自动截取。
+- 可选：`ccf`、`status`、`excerpt`、`paperurl`、`slidesurl`、`bibtexurl`。
+- 当前模板没有使用 `year` 字段；年份来自 `date`。
+
+新增论文模板如下，格式符合当前项目的 Markdown collection 文件：
 
 ```markdown
 ---
@@ -257,30 +327,50 @@ ccf: "A"
 permalink: /publication/YYYY-MM-DD-short-title
 excerpt: "One-sentence summary of this paper."
 date: YYYY-MM-DD
-venue: "Conference or Journal Name"
-citation: "Author A, Yanzhou Mu, Author C. Paper Title. Conference or Journal Name, YYYY."
+venue: "Full Conference or Journal Name"
+venue_short: "SHORT"
+authors: "Author A, Yanzhou Mu, Author C"
+citation: "Author A, Yanzhou Mu, Author C. Paper Title. Full Conference or Journal Name, YYYY."
 ---
 
-This publication is listed from the LaTeX resume or another verified source.
+This publication is listed from a verified source.
 ```
 
-如果不是 CCF-A 论文，不要写 `ccf: "A"`。如果是 major revision，可以加：
+填写说明：
+
+- 如果不是 CCF-A 论文，不要写 `ccf: "A"`。
+- 如果无法确认 `venue_short`，可以先不写；但三行列表第一行可能只能使用模板从 `venue` 推断出的缩写。
+- 如果填写 `authors`，保持作者原始顺序。可以写 `Yanzhou Mu`，模板会自动加粗；也可以手动写 `<strong>Yanzhou Mu</strong>`，但不推荐混用。
+- 如果是 major revision，可以加：
 
 ```yaml
 status: "Major revision"
 ```
+
+新增后验证：
+
+- 本地构建：`bundle exec jekyll build`
+- 本地预览：`bundle exec jekyll serve`
+- 页面路径：`/publications/`
+- 搜索关键词：论文标题、`permalink` 中的 slug、`venue_short` 或 `citation` 中的作者名。
+- 检查点：标题链接是否能打开、作者列表中我的名字是否加粗、CCF 是否只在已确认条目中显示、venue 是否显示完整。
+
+常见错误：
+
+- 忘记写 `collection: publications`，导致 Jekyll 不把它当作 publication。
+- `permalink` 和已有论文重复。
+- `date` 格式不是 `YYYY-MM-DD`。
+- YAML front matter 没有用开头和结尾的 `---` 包住。
+- 冒号后缺少空格，例如写成 `date:2026-06-18`。
+- 标题或 citation 中有冒号、单引号等字符时没有加引号。
+- 忘记重新 build，导致页面仍是旧内容。
+- 只修改 `_site/` 生成文件，而没有修改 `_publications/*.md` 源文件。
 
 #### 删除论文
 
 - 删除对应的 `_publications/*.md` 文件即可。
 - 不要只删除 `citation`，否则页面可能仍显示空条目。
 - 删除前确认没有其他页面或 CV 引用该条目。
-
-#### 调整论文顺序
-
-- 同一组内按 `date` 倒序。
-- 修改顺序最稳妥的方式是调整对应论文文件中的 `date` 字段。
-- 如果要改变整体排序规则，修改 `_pages/publications.html` 第 13-52 行附近。
 
 #### BibTeX / Markdown / YAML 说明
 
@@ -629,4 +719,3 @@ npm run build:js
 - 当前没有独立 `_data/service.yml`；Service 写死在 `_pages/about.md`。
 - 当前没有公开简历下载 PDF 路径；`_config.yml` 中 `cv_pdf` 为空。
 - 当前没有明确的 Google Scholar、GitHub、LinkedIn、ORCID 配置值；这些字段在 `_config.yml` 中存在但为空。
-
