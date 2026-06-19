@@ -521,6 +521,37 @@ author_profile: true
 - 页面必须有 front matter，也就是文件开头的 `---` 区块。
 - `permalink` 要和导航里的 `url` 对上。
 
+#### Students 页面如何修改
+
+- 页面文件：`_pages/students.md`
+- 导航入口：`_data/navigation.yml` 第 10-21 行附近，搜索 `Students` 或 `url: /students/`
+- 页面 URL：`/students/`
+- 搜索关键词：`Current Students`、`Alumni`
+
+新增 current student：
+
+```markdown
+* **Student Name**, Ph.D. student, co-supervised with Prof. Name, Sep. 2026-present.
+```
+
+新增 alumni：
+
+```markdown
+* **Student Name**, M.S., graduated in 2026. Currently at Organization Name.
+```
+
+修改学生去向：
+
+- 在 `_pages/students.md` 的 `Alumni` 小节中找到学生姓名。
+- 修改 `Currently ...` 后面的去向文字。
+- 如果 current student 毕业了，把对应条目从 `Current Students` 移到 `Alumni`，并补充 `graduated in YYYY` 和当前去向。
+
+注意事项：
+
+- 保持学生姓名加粗：`**Name**`。
+- 当前页面是手写 Markdown 列表，没有独立 `_data/students.yml`。
+- 修改后运行 `bundle exec jekyll build`，本地预览用 `bundle exec jekyll serve -l -H localhost`，然后打开 `http://localhost:4000/students/`。
+
 ## 8. 图片、头像、PDF 简历等资源如何替换
 
 #### 头像
