@@ -1,0 +1,83 @@
+{% include base_path %}
+
+{% assign publication_title = post.title | markdownify | remove: "<p>" | remove: "</p>" %}
+{% assign publication_year = post.date | default: "1900-01-01" | date: "%Y" %}
+{% assign publication_year_short = post.date | default: "1900-01-01" | date: "%y" %}
+{% assign publication_venue = post.venue | default: "" | strip %}
+
+{% assign venue_short = post.venue_short | default: "" | strip %}
+{% if venue_short == "" and publication_venue != "" %}
+  {% if publication_venue contains "(" %}
+    {% assign venue_short = publication_venue | split: "(" | last | split: ")" | first | split: " " | first | strip %}
+  {% elsif publication_venue contains "Automated Software Engineering" %}
+    {% assign venue_short = "ASE" %}
+  {% elsif publication_venue contains "Software Testing and Analysis" %}
+    {% assign venue_short = "ISSTA" %}
+  {% elsif publication_venue contains "Transactions on Software Engineering and Methodology" %}
+    {% assign venue_short = "TOSEM" %}
+  {% elsif publication_venue contains "Transactions on Software Engineering" %}
+    {% assign venue_short = "TSE" %}
+  {% elsif publication_venue contains "Association for Computational Linguistics" %}
+    {% assign venue_short = "ACL" %}
+  {% elsif publication_venue contains "Information and Software Technology" %}
+    {% assign venue_short = "IST" %}
+  {% elsif publication_venue contains "Journal of Software: Evolution and Process" %}
+    {% assign venue_short = "JSEP" %}
+  {% elsif publication_venue contains "International Journal of Software & Informatics" %}
+    {% assign venue_short = "IJSI" %}
+  {% elsif publication_venue contains "软件学报" %}
+    {% assign venue_short = "软件学报" %}
+  {% endif %}
+{% endif %}
+
+{% assign ccf_label = "" %}
+{% if post.ccf %}
+  {% assign ccf_value = post.ccf | strip %}
+  {% if ccf_value contains "CCF" %}
+    {% assign ccf_label = ccf_value %}
+  {% else %}
+    {% capture ccf_label %}CCF-{{ ccf_value }}{% endcapture %}
+  {% endif %}
+{% endif %}
+
+{% assign publication_meta = "" %}
+{% if venue_short != "" %}
+  {% capture publication_meta %}{{ venue_short }}'{{ publication_year_short }}{% endcapture %}
+{% endif %}
+{% if ccf_label != "" %}
+  {% if publication_meta != "" %}
+    {% capture publication_meta %}{{ publication_meta }}, {{ ccf_label }}{% endcapture %}
+  {% else %}
+    {% assign publication_meta = ccf_label %}
+  {% endif %}
+{% endif %}
+
+{% assign authors_line = post.authors | default: "" | strip %}
+{% if authors_line == "" and post.citation %}
+  {% capture title_separator %}. {{ post.title }}{% endcapture %}
+  {% assign citation_parts = post.citation | split: title_separator %}
+  {% assign authors_line = citation_parts[0] | strip %}
+  {% if authors_line == post.citation %}
+    {% assign authors_line = post.citation | split: ". " | first | strip %}
+  {% endif %}
+{% endif %}
+{% assign authors_line = authors_line | replace: "Yanzhou Mu", "<strong>Yanzhou Mu</strong>" | replace: "沐燕舟", "<strong>沐燕舟</strong>" %}
+
+<h2 class="archive__item-title publication__item-title" itemprop="headline">
+  <strong>
+    {% if post.link %}
+      <a href="{{ post.link }}">{{ publication_title }}</a> <a href="{{ base_path }}{{ post.url }}" rel="permalink"><i class="fa fa-link" aria-hidden="true" title="permalink"></i><span class="sr-only">Permalink</span></a>
+    {% else %}
+      <a href="{{ base_path }}{{ post.url }}" rel="permalink">{{ publication_title }}</a>
+    {% endif %}
+    {% if publication_meta != "" %}（{{ publication_meta }}）{% endif %}
+  </strong>
+</h2>
+
+{% if authors_line != "" %}
+  <p class="publication__item-authors">{{ authors_line }}</p>
+{% endif %}
+
+{% if publication_venue != "" %}
+  <p class="publication__item-venue"><em>{{ publication_venue }}, {{ publication_year }}{% if post.status %}, {{ post.status }}{% endif %}</em></p>
+{% endif %}
