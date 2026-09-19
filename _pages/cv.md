@@ -77,19 +77,18 @@ Academic Service
 **Journal Reviewer**
 
 * ACM Computing Surveys (CSUR)
+* ACM Transactions on Software Engineering and Methodology (TOSEM)
 * IEEE Transactions on Dependable and Secure Computing (TDSC)
+* Journal of Software (Co-reviewer)
 
 **Conference Service / Reviewing**
 
+* 2027: Co-reviewer, ICSE
 * 2026: Shadow PC, ICSE
 * 2026: Co-reviewer, ISSTA
 * 2026: Co-reviewer, ICSE
 * 2025: Co-reviewer, PROMISE
 * 2025: Co-reviewer, FSE
-
-**Other Reviewing**
-
-* Co-reviewer, Journal of Software
 
 Awards and Honors
 ======
