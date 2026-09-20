@@ -1,9 +1,12 @@
 ---
-title: "LLM Generalization Testing Tool for MindSpore"
-excerpt: "Completed project. Student leader. Developed a component-based generalization testing tool for large-scale models on MindSpore."
+title: "Generalization Testing for Large-Model Frameworks"
+excerpt: "Completed project. Student leader. Developed a generalization testing framework for large-model training systems."
 collection: portfolio
+project_images:
+  - path: /images/large-model-generalization-acknowledgements.png
+    alt: Project acknowledgement
 ---
 
-Developed a component-based generalization testing tool for large-scale models on MindSpore, enabling automated mutation and recombination of model structures such as layers, shapes, and parameters under defined constraints.
+Developed a generalization testing framework for large-model training systems by decomposing models into reusable structural modules and generating semantically meaningful variants across model structure, parallelism, and optimization. Investigated configuration constraints spanning model, parallelism, optimization, and backend layers, distinguishing semantic requirements from implementation restrictions while preserving mutation intent during deep distributed execution.
 
-Built cross-framework validation pipelines by generating equivalent training scripts in PyTorch and conducting comparative analysis to detect training failures and accuracy anomalies. Designed iterative strategies to identify fault-inducing factors and support multi-dimensional issue diagnosis across functionality, performance, and numerical accuracy.
+Applied cross-framework differential testing across PTA and MindSpore-based stacks. Produced 52 issue reports, including 44 high-confidence suspected framework defects.
